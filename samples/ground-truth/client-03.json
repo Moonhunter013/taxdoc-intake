@@ -1,0 +1,44 @@
+{
+  "client_id": "client-03",
+  "tax_year": 2026,
+  "taxpayer_name": "Desmond Okafor",
+  "taxpayer_ssn": "000-31-8810",
+  "documents": [
+    {
+      "file": "client-03_w2.pdf",
+      "form": "W-2",
+      "employer_name": "Riverbend Health Systems",
+      "employer_ein": "00-0318810",
+      "employer_address": "500 Scioto Mile, Columbus, OH 43215",
+      "box1_wages": 52250.0,
+      "box2_federal_withholding": 5225.0,
+      "box3_ss_wages": 55000.0,
+      "box4_ss_tax": 3410.0,
+      "box5_medicare_wages": 55000.0,
+      "box6_medicare_tax": 797.5,
+      "box12": [
+        {
+          "code": "D",
+          "amount": 2750.0
+        }
+      ],
+      "box13_retirement_plan": true,
+      "box15_state": "OH",
+      "box15_state_id": "00031881",
+      "box16_state_wages": 52250.0,
+      "box17_state_tax": 1463.0
+    },
+    {
+      "file": "client-03_1099nec.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Pixelforge Studio LLC",
+      "payer_tin": "00-0318811",
+      "payer_address": "48 Short North Way, Columbus, OH 43201",
+      "box1a_nonemployee_comp": 42000.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": "OH",
+      "box6_state_id": "00031882",
+      "box7_state_income": 42000.0
+    }
+  ]
+}

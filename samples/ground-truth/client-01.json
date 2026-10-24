@@ -1,0 +1,32 @@
+{
+  "client_id": "client-01",
+  "tax_year": 2026,
+  "taxpayer_name": "Avery Lindqvist",
+  "taxpayer_ssn": "000-14-2201",
+  "documents": [
+    {
+      "file": "client-01_w2.pdf",
+      "form": "W-2",
+      "employer_name": "Halcyon Robotics Inc",
+      "employer_ein": "00-0412201",
+      "employer_address": "1200 Pearl Pkwy, Boulder, CO 80301",
+      "box1_wages": 203000.0,
+      "box2_federal_withholding": 42630.0,
+      "box3_ss_wages": 184500.0,
+      "box4_ss_tax": 11439.0,
+      "box5_medicare_wages": 212000.0,
+      "box6_medicare_tax": 3182.0,
+      "box12": [
+        {
+          "code": "D",
+          "amount": 9000.0
+        }
+      ],
+      "box13_retirement_plan": true,
+      "box15_state": "CO",
+      "box15_state_id": "00012201",
+      "box16_state_wages": 203000.0,
+      "box17_state_tax": 8932.0
+    }
+  ]
+}

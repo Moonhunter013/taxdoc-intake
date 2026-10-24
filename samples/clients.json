@@ -1,0 +1,256 @@
+{
+  "_note": "ALL DATA IS FICTIONAL. SSNs use area 000 and EINs use prefix 00, which are never issued. Tax year 2026 (matches the current IRS form revisions). Each client is designed to exercise a planning scenario (see 'scenario').",
+  "tax_year": 2026,
+  "clients": [
+    {
+      "id": "client-01",
+      "name": "Avery Lindqvist",
+      "ssn": "000-14-2201",
+      "address": "418 Juniper Hollow Rd, Boulder, CO 80302",
+      "scenario": "High-earning W-2 employee with HDHP but no HSA contributions; 401(k) under max.",
+      "w2": [
+        {
+          "employer": "Halcyon Robotics Inc",
+          "ein": "00-0412201",
+          "employer_address": "1200 Pearl Pkwy, Boulder, CO 80301",
+          "gross": 212000,
+          "deferral_401k": 9000,
+          "hsa_pretax": 0,
+          "state": "CO",
+          "state_id": "00012201",
+          "fed_withholding_rate": 0.21,
+          "state_withholding_rate": 0.044
+        }
+      ],
+      "nec": []
+    },
+    {
+      "id": "client-02",
+      "name": "Marisol Etxeberria",
+      "ssn": "000-27-5532",
+      "address": "77 Tidewater Ln, Charleston, SC 29401",
+      "scenario": "Sole proprietor consultant, strong S-corp election candidate; no retirement plan.",
+      "w2": [],
+      "nec": [
+        {
+          "payer": "Brightline Logistics LLC",
+          "ein": "00-0275532",
+          "payer_address": "900 Meeting St, Charleston, SC 29403",
+          "amount": 118500,
+          "state": "SC",
+          "state_id": "00027553"
+        },
+        {
+          "payer": "Coastal Ferry Authority Co",
+          "ein": "00-0275533",
+          "payer_address": "15 Harbor View Dr, Mt Pleasant, SC 29464",
+          "amount": 66500,
+          "state": "SC",
+          "state_id": "00027554"
+        }
+      ]
+    },
+    {
+      "id": "client-03",
+      "name": "Desmond Okafor",
+      "ssn": "000-31-8810",
+      "address": "2219 Elmhurst Ave, Columbus, OH 43215",
+      "scenario": "W-2 day job plus freelance side gig; SEP-IRA / Solo 401(k) opportunity on side income.",
+      "w2": [
+        {
+          "employer": "Riverbend Health Systems",
+          "ein": "00-0318810",
+          "employer_address": "500 Scioto Mile, Columbus, OH 43215",
+          "gross": 55000,
+          "deferral_401k": 2750,
+          "hsa_pretax": 0,
+          "state": "OH",
+          "state_id": "00031881",
+          "fed_withholding_rate": 0.1,
+          "state_withholding_rate": 0.028
+        }
+      ],
+      "nec": [
+        {
+          "payer": "Pixelforge Studio LLC",
+          "ein": "00-0318811",
+          "payer_address": "48 Short North Way, Columbus, OH 43201",
+          "amount": 42000,
+          "state": "OH",
+          "state_id": "00031882"
+        }
+      ]
+    },
+    {
+      "id": "client-04",
+      "name": "Priya Ramanathan",
+      "ssn": "000-45-1176",
+      "address": "6 Quarry Stone Ct, Raleigh, NC 27606",
+      "scenario": "Control case: moderate W-2 income, already using 401(k) and HSA. Few opportunities expected.",
+      "w2": [
+        {
+          "employer": "Tarheel Analytics Corp",
+          "ein": "00-0451176",
+          "employer_address": "300 Glenwood Ave, Raleigh, NC 27603",
+          "gross": 68000,
+          "deferral_401k": 6800,
+          "hsa_pretax": 3000,
+          "state": "NC",
+          "state_id": "00045117",
+          "fed_withholding_rate": 0.11,
+          "state_withholding_rate": 0.0425
+        }
+      ],
+      "nec": []
+    },
+    {
+      "id": "client-05",
+      "name": "Tobias Wren",
+      "ssn": "000-52-9043",
+      "address": "1510 Alder St, Portland, OR 97205",
+      "scenario": "Freelance designer with two clients totaling $130k; S-corp borderline-to-good, Solo 401(k).",
+      "w2": [],
+      "nec": [
+        {
+          "payer": "Cascadia Outdoor Brands Inc",
+          "ein": "00-0529043",
+          "payer_address": "2200 NW Front Ave, Portland, OR 97209",
+          "amount": 81000,
+          "state": "OR",
+          "state_id": "00052904"
+        },
+        {
+          "payer": "Fernwood Publishing LLC",
+          "ein": "00-0529044",
+          "payer_address": "730 SE Hawthorne Blvd, Portland, OR 97214",
+          "amount": 49000,
+          "state": "OR",
+          "state_id": "00052905"
+        }
+      ]
+    },
+    {
+      "id": "client-06",
+      "name": "Helena Vasquez-Moore",
+      "ssn": "000-63-4418",
+      "address": "92 Laurel Canyon Dr, Austin, TX 78746",
+      "scenario": "High W-2 earner (over Additional Medicare threshold) plus consulting income. No state income tax.",
+      "w2": [
+        {
+          "employer": "Lonestar Semiconductor Inc",
+          "ein": "00-0634418",
+          "employer_address": "11000 Research Blvd, Austin, TX 78759",
+          "gross": 240000,
+          "deferral_401k": 23500,
+          "hsa_pretax": 4300,
+          "state": null,
+          "state_id": null,
+          "fed_withholding_rate": 0.24,
+          "state_withholding_rate": 0
+        }
+      ],
+      "nec": [
+        {
+          "payer": "Barton Creek Advisory LLC",
+          "ein": "00-0634419",
+          "payer_address": "401 Congress Ave, Austin, TX 78701",
+          "amount": 35000,
+          "state": null,
+          "state_id": null
+        }
+      ]
+    },
+    {
+      "id": "client-07",
+      "name": "Kenji Matsuda-Hart",
+      "ssn": "000-71-3092",
+      "address": "3305 Birchwood Dr, Madison, WI 53705",
+      "scenario": "Borderline S-corp case ($95k). Tests that the engine explains why savings may not justify costs.",
+      "w2": [],
+      "nec": [
+        {
+          "payer": "Northwoods Software Co",
+          "ein": "00-0713092",
+          "payer_address": "1 E Main St, Madison, WI 53703",
+          "amount": 95000,
+          "state": "WI",
+          "state_id": "00071309"
+        }
+      ]
+    },
+    {
+      "id": "client-08",
+      "name": "Rosa Delacroix",
+      "ssn": "000-80-6624",
+      "address": "41 Magnolia Row, Savannah, GA 31401",
+      "scenario": "Control case: part-time W-2 income. Saver's Credit may apply; nothing else.",
+      "w2": [
+        {
+          "employer": "Forsyth Park Bakery LLC",
+          "ein": "00-0806624",
+          "employer_address": "18 Bull St, Savannah, GA 31401",
+          "gross": 38000,
+          "deferral_401k": 0,
+          "hsa_pretax": 0,
+          "state": "GA",
+          "state_id": "00080662",
+          "fed_withholding_rate": 0.07,
+          "state_withholding_rate": 0.035
+        }
+      ],
+      "nec": []
+    },
+    {
+      "id": "client-09",
+      "name": "Gideon Achterberg",
+      "ssn": "000-88-1357",
+      "address": "8800 Sagebrush Trl, Scottsdale, AZ 85255",
+      "scenario": "High-income sole proprietor ($310k); strong S-corp case, QBI phase-in considerations, Solo 401(k).",
+      "w2": [],
+      "nec": [
+        {
+          "payer": "Sonoran Medical Partners PLLC",
+          "ein": "00-0881357",
+          "payer_address": "4500 N 32nd St, Phoenix, AZ 85018",
+          "amount": 310000,
+          "state": "AZ",
+          "state_id": "00088135"
+        }
+      ]
+    },
+    {
+      "id": "client-10",
+      "name": "Imogen Castellanos",
+      "ssn": "000-94-2780",
+      "address": "1207 Hawthorne Pl, Chicago, IL 60657",
+      "scenario": "Changed jobs mid-year: two W-2s whose combined Social Security wages exceed the wage base, so excess SS tax was withheld (refundable credit). Edge case for multi-document aggregation.",
+      "w2": [
+        {
+          "employer": "Lakeshore Capital Group LLC",
+          "ein": "00-0942780",
+          "employer_address": "200 W Madison St, Chicago, IL 60606",
+          "gross": 112000,
+          "deferral_401k": 8000,
+          "hsa_pretax": 0,
+          "state": "IL",
+          "state_id": "00094278",
+          "fed_withholding_rate": 0.19,
+          "state_withholding_rate": 0.0495
+        },
+        {
+          "employer": "Wabash Data Systems Inc",
+          "ein": "00-0942781",
+          "employer_address": "350 N Orleans St, Chicago, IL 60654",
+          "gross": 84000,
+          "deferral_401k": 6000,
+          "hsa_pretax": 1500,
+          "state": "IL",
+          "state_id": "00094279",
+          "fed_withholding_rate": 0.19,
+          "state_withholding_rate": 0.0495
+        }
+      ],
+      "nec": []
+    }
+  ]
+}

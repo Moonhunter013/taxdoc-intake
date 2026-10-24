@@ -1,0 +1,60 @@
+{
+  "client_id": "client-10",
+  "tax_year": 2026,
+  "taxpayer_name": "Imogen Castellanos",
+  "taxpayer_ssn": "000-94-2780",
+  "documents": [
+    {
+      "file": "client-10_w2_1.pdf",
+      "form": "W-2",
+      "employer_name": "Lakeshore Capital Group LLC",
+      "employer_ein": "00-0942780",
+      "employer_address": "200 W Madison St, Chicago, IL 60606",
+      "box1_wages": 104000.0,
+      "box2_federal_withholding": 19760.0,
+      "box3_ss_wages": 112000.0,
+      "box4_ss_tax": 6944.0,
+      "box5_medicare_wages": 112000.0,
+      "box6_medicare_tax": 1624.0,
+      "box12": [
+        {
+          "code": "D",
+          "amount": 8000.0
+        }
+      ],
+      "box13_retirement_plan": true,
+      "box15_state": "IL",
+      "box15_state_id": "00094278",
+      "box16_state_wages": 104000.0,
+      "box17_state_tax": 5148.0
+    },
+    {
+      "file": "client-10_w2_2.pdf",
+      "form": "W-2",
+      "employer_name": "Wabash Data Systems Inc",
+      "employer_ein": "00-0942781",
+      "employer_address": "350 N Orleans St, Chicago, IL 60654",
+      "box1_wages": 76500.0,
+      "box2_federal_withholding": 14535.0,
+      "box3_ss_wages": 82500.0,
+      "box4_ss_tax": 5115.0,
+      "box5_medicare_wages": 82500.0,
+      "box6_medicare_tax": 1196.25,
+      "box12": [
+        {
+          "code": "D",
+          "amount": 6000.0
+        },
+        {
+          "code": "W",
+          "amount": 1500.0
+        }
+      ],
+      "box13_retirement_plan": true,
+      "box15_state": "IL",
+      "box15_state_id": "00094279",
+      "box16_state_wages": 76500.0,
+      "box17_state_tax": 3786.75
+    }
+  ]
+}

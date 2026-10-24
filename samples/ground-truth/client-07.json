@@ -1,0 +1,20 @@
+{
+  "client_id": "client-07",
+  "tax_year": 2026,
+  "taxpayer_name": "Kenji Matsuda-Hart",
+  "taxpayer_ssn": "000-71-3092",
+  "documents": [
+    {
+      "file": "client-07_1099nec.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Northwoods Software Co",
+      "payer_tin": "00-0713092",
+      "payer_address": "1 E Main St, Madison, WI 53703",
+      "box1a_nonemployee_comp": 95000.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": "WI",
+      "box6_state_id": "00071309",
+      "box7_state_income": 95000.0
+    }
+  ]
+}

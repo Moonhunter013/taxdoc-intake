@@ -1,0 +1,20 @@
+{
+  "client_id": "client-09",
+  "tax_year": 2026,
+  "taxpayer_name": "Gideon Achterberg",
+  "taxpayer_ssn": "000-88-1357",
+  "documents": [
+    {
+      "file": "client-09_1099nec.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Sonoran Medical Partners PLLC",
+      "payer_tin": "00-0881357",
+      "payer_address": "4500 N 32nd St, Phoenix, AZ 85018",
+      "box1a_nonemployee_comp": 310000.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": "AZ",
+      "box6_state_id": "00088135",
+      "box7_state_income": 310000.0
+    }
+  ]
+}

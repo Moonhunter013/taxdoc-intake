@@ -1,0 +1,36 @@
+{
+  "client_id": "client-04",
+  "tax_year": 2026,
+  "taxpayer_name": "Priya Ramanathan",
+  "taxpayer_ssn": "000-45-1176",
+  "documents": [
+    {
+      "file": "client-04_w2.pdf",
+      "form": "W-2",
+      "employer_name": "Tarheel Analytics Corp",
+      "employer_ein": "00-0451176",
+      "employer_address": "300 Glenwood Ave, Raleigh, NC 27603",
+      "box1_wages": 58200.0,
+      "box2_federal_withholding": 6402.0,
+      "box3_ss_wages": 65000.0,
+      "box4_ss_tax": 4030.0,
+      "box5_medicare_wages": 65000.0,
+      "box6_medicare_tax": 942.5,
+      "box12": [
+        {
+          "code": "D",
+          "amount": 6800.0
+        },
+        {
+          "code": "W",
+          "amount": 3000.0
+        }
+      ],
+      "box13_retirement_plan": true,
+      "box15_state": "NC",
+      "box15_state_id": "00045117",
+      "box16_state_wages": 58200.0,
+      "box17_state_tax": 2473.5
+    }
+  ]
+}

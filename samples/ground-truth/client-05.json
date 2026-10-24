@@ -1,0 +1,32 @@
+{
+  "client_id": "client-05",
+  "tax_year": 2026,
+  "taxpayer_name": "Tobias Wren",
+  "taxpayer_ssn": "000-52-9043",
+  "documents": [
+    {
+      "file": "client-05_1099nec_1.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Cascadia Outdoor Brands Inc",
+      "payer_tin": "00-0529043",
+      "payer_address": "2200 NW Front Ave, Portland, OR 97209",
+      "box1a_nonemployee_comp": 81000.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": "OR",
+      "box6_state_id": "00052904",
+      "box7_state_income": 81000.0
+    },
+    {
+      "file": "client-05_1099nec_2.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Fernwood Publishing LLC",
+      "payer_tin": "00-0529044",
+      "payer_address": "730 SE Hawthorne Blvd, Portland, OR 97214",
+      "box1a_nonemployee_comp": 49000.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": "OR",
+      "box6_state_id": "00052905",
+      "box7_state_income": 49000.0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "client_id": "client-02",
+  "tax_year": 2026,
+  "taxpayer_name": "Marisol Etxeberria",
+  "taxpayer_ssn": "000-27-5532",
+  "documents": [
+    {
+      "file": "client-02_1099nec_1.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Brightline Logistics LLC",
+      "payer_tin": "00-0275532",
+      "payer_address": "900 Meeting St, Charleston, SC 29403",
+      "box1a_nonemployee_comp": 118500.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": "SC",
+      "box6_state_id": "00027553",
+      "box7_state_income": 118500.0
+    },
+    {
+      "file": "client-02_1099nec_2.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Coastal Ferry Authority Co",
+      "payer_tin": "00-0275533",
+      "payer_address": "15 Harbor View Dr, Mt Pleasant, SC 29464",
+      "box1a_nonemployee_comp": 66500.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": "SC",
+      "box6_state_id": "00027554",
+      "box7_state_income": 66500.0
+    }
+  ]
+}

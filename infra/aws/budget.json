@@ -1,0 +1,6 @@
+{
+  "BudgetName": "taxdoc-intake-monthly",
+  "BudgetLimit": { "Amount": "25", "Unit": "USD" },
+  "BudgetType": "COST",
+  "TimeUnit": "MONTHLY"
+}

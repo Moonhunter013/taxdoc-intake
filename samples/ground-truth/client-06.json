@@ -1,0 +1,48 @@
+{
+  "client_id": "client-06",
+  "tax_year": 2026,
+  "taxpayer_name": "Helena Vasquez-Moore",
+  "taxpayer_ssn": "000-63-4418",
+  "documents": [
+    {
+      "file": "client-06_w2.pdf",
+      "form": "W-2",
+      "employer_name": "Lonestar Semiconductor Inc",
+      "employer_ein": "00-0634418",
+      "employer_address": "11000 Research Blvd, Austin, TX 78759",
+      "box1_wages": 212200.0,
+      "box2_federal_withholding": 50928.0,
+      "box3_ss_wages": 184500.0,
+      "box4_ss_tax": 11439.0,
+      "box5_medicare_wages": 235700.0,
+      "box6_medicare_tax": 3738.95,
+      "box12": [
+        {
+          "code": "D",
+          "amount": 23500.0
+        },
+        {
+          "code": "W",
+          "amount": 4300.0
+        }
+      ],
+      "box13_retirement_plan": true,
+      "box15_state": null,
+      "box15_state_id": null,
+      "box16_state_wages": 0.0,
+      "box17_state_tax": 0.0
+    },
+    {
+      "file": "client-06_1099nec.pdf",
+      "form": "1099-NEC",
+      "payer_name": "Barton Creek Advisory LLC",
+      "payer_tin": "00-0634419",
+      "payer_address": "401 Congress Ave, Austin, TX 78701",
+      "box1a_nonemployee_comp": 35000.0,
+      "box4_federal_withholding": 0.0,
+      "box6_state": null,
+      "box6_state_id": null,
+      "box7_state_income": 0.0
+    }
+  ]
+}

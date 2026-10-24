@@ -1,0 +1,27 @@
+{
+  "client_id": "client-08",
+  "tax_year": 2026,
+  "taxpayer_name": "Rosa Delacroix",
+  "taxpayer_ssn": "000-80-6624",
+  "documents": [
+    {
+      "file": "client-08_w2.pdf",
+      "form": "W-2",
+      "employer_name": "Forsyth Park Bakery LLC",
+      "employer_ein": "00-0806624",
+      "employer_address": "18 Bull St, Savannah, GA 31401",
+      "box1_wages": 38000.0,
+      "box2_federal_withholding": 2660.0,
+      "box3_ss_wages": 38000.0,
+      "box4_ss_tax": 2356.0,
+      "box5_medicare_wages": 38000.0,
+      "box6_medicare_tax": 551.0,
+      "box12": [],
+      "box13_retirement_plan": false,
+      "box15_state": "GA",
+      "box15_state_id": "00080662",
+      "box16_state_wages": 38000.0,
+      "box17_state_tax": 1330.0
+    }
+  ]
+}
