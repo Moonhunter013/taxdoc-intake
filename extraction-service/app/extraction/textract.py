@@ -10,6 +10,7 @@ Geometry is relative to the page: 0.0 = top/left edge, 1.0 = bottom/right edge.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from functools import cached_property
 
@@ -105,6 +106,23 @@ class TextractDocument:
                 )
             )
         return pairs
+
+    def line_below(self, label: re.Pattern[str], max_gap: float = 0.05) -> Line | None:
+        """The first text line directly under a printed label, in the same column.
+
+        Fallback for when Textract's key-value detection drops a value that its plain text
+        recognition still read correctly (see the 1099-NEC state row).
+        """
+        header = next((ln for ln in self.lines if label.match(ln.text)), None)
+        if header is None:
+            return None
+        below = [
+            ln
+            for ln in self.lines
+            if abs(ln.box.left - header.box.left) < 0.02
+            and 0 < ln.box.top - (header.box.top + header.box.height) < max_gap
+        ]
+        return min(below, key=lambda ln: ln.box.top, default=None)
 
     @cached_property
     def lines(self) -> list[Line]:
