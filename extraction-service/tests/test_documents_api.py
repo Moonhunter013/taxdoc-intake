@@ -2,14 +2,21 @@
 
 import io
 import re
+from uuid import UUID
 
 import pytest
 from botocore.exceptions import ClientError
 from fastapi.testclient import TestClient
 from pypdf import PdfWriter
 
-from app.api.dependencies import get_s3_client, get_settings, get_textract_client
+from app.api.dependencies import (
+    get_repository,
+    get_s3_client,
+    get_settings,
+    get_textract_client,
+)
 from app.config import Settings
+from app.db.repository import InMemoryDocumentRepository
 from app.main import app
 from tests.fixtures import SAMPLES, load_fixture, without_field
 
@@ -35,14 +42,23 @@ class FakeTextract:
         return self.response
 
 
+TEST_SETTINGS = Settings(s3_bucket="test-bucket", tin_hmac_key="test-hmac-key")
+
+
 @pytest.fixture
-def api():
-    """Yields (client, s3, set_textract) with AWS dependencies overridden."""
+def repo():
+    return InMemoryDocumentRepository()
+
+
+@pytest.fixture
+def api(repo):
+    """Yields (client, s3, set_textract) with AWS and the database replaced by fakes."""
     s3 = FakeS3()
     state = {"textract": FakeTextract(load_fixture("client-01_w2"))}
     app.dependency_overrides[get_s3_client] = lambda: s3
     app.dependency_overrides[get_textract_client] = lambda: state["textract"]
-    app.dependency_overrides[get_settings] = lambda: Settings(s3_bucket="test-bucket")
+    app.dependency_overrides[get_settings] = lambda: TEST_SETTINGS
+    app.dependency_overrides[get_repository] = lambda: repo
 
     def set_textract(fake):
         state["textract"] = fake
@@ -176,3 +192,100 @@ def test_all_money_values_use_two_decimal_places(api):
     doc = upload(client, pdf_bytes()).json()["document"]
     assert doc["box16_state_wages"] == "0.00"
     assert doc["box17_state_tax"] == "0.00"
+
+
+# --- persistence, GET and PATCH -------------------------------------------------------------
+
+
+def test_upload_is_stored_with_tins_minimized(api, repo):
+    client, _, _ = api
+    body = upload(client, pdf_bytes()).json()
+    stored = repo.get(UUID(body["document_id"]))
+    assert stored.values["employee_ssn"] == "***-**-2201"
+    assert "000-14-2201" not in stored.model_dump_json()
+    assert len(stored.taxpayer_tin_hash) == 64
+    assert stored.taxpayer_tin_last4 == "2201"
+
+
+def test_get_returns_the_stored_document(api):
+    client, _, _ = api
+    created = upload(client, pdf_bytes()).json()
+    fetched = client.get(f"{URL}/{created['document_id']}").json()
+    assert fetched == created
+
+
+def test_get_unknown_document_is_404(api):
+    client, _, _ = api
+    assert client.get(f"{URL}/00000000-0000-0000-0000-000000000000").status_code == 404
+
+
+def test_patch_corrects_a_value_and_records_who(api):
+    client, _, _ = api
+    doc_id = upload(client, pdf_bytes()).json()["document_id"]
+    resp = client.patch(
+        f"{URL}/{doc_id}/fields/box17_state_tax",
+        json={"value": "8900.00", "corrected_by": "paul@example.com"},
+    )
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["document"]["box17_state_tax"] == "8900.00"
+    assert body["fields"]["box17_state_tax"]["corrected_by"] == "paul@example.com"
+    assert body["fields"]["box17_state_tax"]["corrected_at"] is not None
+    # persisted
+    assert client.get(f"{URL}/{doc_id}").json()["document"]["box17_state_tax"] == "8900.00"
+
+
+def test_patch_reruns_consistency_rules(api):
+    client, _, _ = api
+    doc_id = upload(client, pdf_bytes()).json()["document_id"]
+    bad = client.patch(
+        f"{URL}/{doc_id}/fields/box4_ss_tax", json={"value": "1439.00", "corrected_by": "paul"}
+    ).json()
+    assert bad["needs_review"] is True
+    assert any("6.2% of box 3" in r for r in bad["review_reasons"])
+    fixed = client.patch(
+        f"{URL}/{doc_id}/fields/box4_ss_tax", json={"value": "11439.00", "corrected_by": "paul"}
+    ).json()
+    assert fixed["needs_review"] is False
+    assert fixed["review_reasons"] == []
+
+
+def test_patch_rejects_invalid_value_without_echoing_it(api):
+    client, _, _ = api
+    doc_id = upload(client, pdf_bytes()).json()["document_id"]
+    resp = client.patch(
+        f"{URL}/{doc_id}/fields/employee_ssn", json={"value": "999-99", "corrected_by": "paul"}
+    )
+    assert resp.status_code == 422
+    assert "999-99" not in resp.text
+
+
+def test_patch_tin_stores_masked_value_and_new_hash(api, repo):
+    client, _, _ = api
+    doc_id = upload(client, pdf_bytes()).json()["document_id"]
+    before = repo.get(UUID(doc_id)).taxpayer_tin_hash
+    body = client.patch(
+        f"{URL}/{doc_id}/fields/employee_ssn",
+        json={"value": "000-14-9999", "corrected_by": "paul"},
+    ).json()
+    assert body["document"]["employee_ssn"] == "***-**-9999"
+    after = repo.get(UUID(doc_id))
+    assert after.taxpayer_tin_hash != before
+    assert "000-14-9999" not in after.model_dump_json()
+
+
+def test_patch_unknown_field_is_404(api):
+    client, _, _ = api
+    doc_id = upload(client, pdf_bytes()).json()["document_id"]
+    resp = client.patch(
+        f"{URL}/{doc_id}/fields/box99_magic", json={"value": "1", "corrected_by": "paul"}
+    )
+    assert resp.status_code == 404
+
+
+def test_missing_hmac_key_refuses_to_store(api, repo):
+    client, _, _ = api
+    app.dependency_overrides[get_settings] = lambda: Settings(s3_bucket="b", tin_hmac_key="")
+    resp = upload(client, pdf_bytes())
+    assert resp.status_code == 500
+    assert resp.json()["detail"] == "Server configuration error"

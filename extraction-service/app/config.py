@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from pydantic import AliasChoices, Field
+from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Fields Textract consistently reports at ~72-80% confidence even when correct (the state row
@@ -30,6 +30,12 @@ class Settings(BaseSettings):
     aws_profile: str | None = Field(
         default=None, validation_alias=AliasChoices("EXTRACTION_AWS_PROFILE", "AWS_PROFILE")
     )
+
+    # Secret key for hashing SSNs/EINs (HMAC-SHA256) so the same person can be matched across
+    # documents without storing the number. Generate with:
+    #   python -c "import secrets; print(secrets.token_hex(32))"
+    # Changing it makes existing hashes unmatchable. In AWS, load it from Secrets Manager.
+    tin_hmac_key: SecretStr = SecretStr("")
 
     # --- Uploads (issue 7) ---
     max_upload_bytes: int = 5 * 1024 * 1024
