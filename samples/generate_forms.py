@@ -188,7 +188,7 @@ NEC = {
 
 
 def overlay(box: RectangleObject, checkmarks: list[list[float]]):
-    """Watermark plus an X in each checked box (pypdf does not flatten checkbox appearances)."""
+    """Margin labels plus an X in each checked box (pypdf does not flatten checkbox appearances)."""
     left, bottom = float(box.left), float(box.bottom)
     width, height = float(box.width), float(box.height)
     buf = io.BytesIO()
@@ -198,20 +198,14 @@ def overlay(box: RectangleObject, checkmarks: list[list[float]]):
     for x1, y1, x2, y2 in checkmarks:
         c.line(x1 + 2, y1 + 2, x2 - 2, y2 - 2)
         c.line(x1 + 2, y2 - 2, x2 - 2, y1 + 2)
-    c.setFillColor(Color(0.85, 0.1, 0.1, alpha=0.12))
-    c.setFont("Helvetica-Bold", 40)
-    c.saveState()
-    c.translate(left + width / 2, bottom + height / 2)
-    c.rotate(20)
-    c.drawCentredString(0, 0, "SYNTHETIC TEST DATA")
-    c.restoreState()
+    # Watermark text goes only in the page margins. An earlier version drew a large diagonal
+    # watermark across the form, and Textract read it as text ("SYNTHE", "TIC"), losing
+    # names and addresses underneath. Test data must not be degraded by its own labelling.
+    label = "SYNTHETIC TEST DATA - fictional person and business - NOT A REAL TAX DOCUMENT"
     c.setFillColor(Color(0.85, 0.1, 0.1, alpha=0.9))
     c.setFont("Helvetica-Bold", 8)
-    c.drawString(
-        left + 36,
-        bottom + 6,
-        "SYNTHETIC TEST DATA - fictional person and business - NOT A REAL TAX DOCUMENT",
-    )
+    c.drawString(left + 36, bottom + height - 12, label)
+    c.drawString(left + 36, bottom + 6, label)
     c.save()
     buf.seek(0)
     return PdfReader(buf).pages[0]

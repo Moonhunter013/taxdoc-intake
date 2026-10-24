@@ -1,7 +1,8 @@
 # Synthetic test data
 
 **Everything here is fictional.** SSNs use area `000` and EINs use prefix `00`, which are never
-issued. Every generated PDF is stamped "SYNTHETIC TEST DATA".
+issued. Every generated PDF is labelled "SYNTHETIC TEST DATA" in its top and bottom margins
+(kept out of the form area so it cannot interfere with OCR).
 
 | Path | What |
 |---|---|
