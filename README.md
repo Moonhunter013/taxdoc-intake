@@ -26,7 +26,7 @@ Angular 21 ──► extraction-service (FastAPI) ──► S3 + Textract
 | `legacy/` | Jersey 2.x service to migrate to Java 21 / Spring Boot | Week 4 |
 | `samples/` | Synthetic client data and filled IRS forms | Week 0 |
 | `infra/aws/` | Budget alarm, IAM policy, bucket setup | Week 0 |
-| `docs/adr/` | Architecture decision records ([0004 review rules](docs/adr/0004-extraction-confidence-and-review.md), [0005 sensitive data](docs/adr/0005-sensitive-data-handling.md)) | ongoing |
+| `docs/adr/` | Architecture decision records ([0003 service split](docs/adr/0003-service-boundaries.md), [0004 review rules](docs/adr/0004-extraction-confidence-and-review.md), [0005 sensitive data](docs/adr/0005-sensitive-data-handling.md)) | ongoing |
 
 ## Running locally
 
