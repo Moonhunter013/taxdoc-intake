@@ -5,12 +5,11 @@ from __future__ import annotations
 from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-from app.models import ExtractionResult, FieldMeta, FormType
-from app.models.common import mask_tin
-
-TIN_FIELDS = ("employee_ssn", "employer_ein", "payer_tin", "recipient_tin")
+from app.models import FieldMeta, FormType
+from app.models.common import TIN_FIELDS, mask_tin
+from app.services.documents import StoredDocument, jsonable
 
 
 def masked(values: dict[str, Any]) -> dict[str, Any]:
@@ -20,6 +19,7 @@ def masked(values: dict[str, Any]) -> dict[str, Any]:
 class DocumentResponse(BaseModel):
     document_id: UUID
     form_type: FormType
+    tax_year: int
     needs_review: bool
     document: dict[str, Any]
     fields: dict[str, FieldMeta]
@@ -27,16 +27,23 @@ class DocumentResponse(BaseModel):
     warnings: list[str]
 
     @classmethod
-    def build(cls, document_id: UUID, result: ExtractionResult) -> DocumentResponse:
+    def from_stored(cls, doc: StoredDocument) -> DocumentResponse:
+        # Stored TIN values are already masked (ADR-0005); masking again is a no-op safeguard.
         return cls(
-            document_id=document_id,
-            form_type=result.form_type,
-            needs_review=result.needs_review,
-            document=masked(result.document.model_dump(mode="json")),
-            fields=result.fields,
-            review_reasons=result.review_reasons,
-            warnings=result.warnings,
+            document_id=doc.id,
+            form_type=doc.form_type,
+            tax_year=doc.tax_year,
+            needs_review=doc.needs_review,
+            document=masked(jsonable(doc.values)),
+            fields=doc.fields,
+            review_reasons=doc.review_reasons,
+            warnings=doc.warnings,
         )
+
+
+class CorrectionRequest(BaseModel):
+    value: Any = Field(description='The corrected value, e.g. "203000.00" or "CO"')
+    corrected_by: str = Field(min_length=1, max_length=255, description="Who made the change")
 
 
 class IncompleteDocumentResponse(BaseModel):

@@ -9,19 +9,33 @@ from __future__ import annotations
 import io
 import logging
 from typing import Annotated
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from botocore.exceptions import BotoCoreError, ClientError
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
 from fastapi.responses import JSONResponse
+from pydantic import ValidationError
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
-from app.api.dependencies import get_s3_client, get_settings, get_textract_client
-from app.api.schemas import DocumentResponse, IncompleteDocumentResponse, masked
+from app.api.dependencies import (
+    get_repository,
+    get_s3_client,
+    get_settings,
+    get_textract_client,
+)
+from app.api.schemas import (
+    CorrectionRequest,
+    DocumentResponse,
+    IncompleteDocumentResponse,
+    masked,
+)
 from app.config import Settings
+from app.db.repository import DocumentRepository
 from app.extraction import IncompleteExtractionError, UnsupportedFormError, extract_document
 from app.review import review
+from app.security import MissingHmacKeyError
+from app.services.documents import UnknownFieldError, apply_correction, from_extraction
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/v1/documents", tags=["documents"])
@@ -63,6 +77,7 @@ async def upload_document(
     settings: Annotated[Settings, Depends(get_settings)],
     s3: Annotated[object, Depends(get_s3_client)],
     textract: Annotated[object, Depends(get_textract_client)],
+    repo: Annotated[DocumentRepository, Depends(get_repository)],
     tax_year: Annotated[int | None, Form(ge=2000, le=2100)] = None,
 ):
     data = await file.read(settings.max_upload_bytes + 1)
@@ -83,8 +98,9 @@ async def upload_document(
             status.HTTP_502_BAD_GATEWAY, "Document storage or OCR service unavailable"
         ) from None
 
+    year = tax_year or settings.default_tax_year
     try:
-        result = review(extract_document(response), tax_year=tax_year, settings=settings)
+        result = review(extract_document(response), tax_year=year, settings=settings)
     except UnsupportedFormError as exc:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, str(exc)) from exc
     except IncompleteExtractionError as exc:
@@ -97,4 +113,61 @@ async def upload_document(
         )
         return JSONResponse(status_code=422, content=body.model_dump())
 
-    return DocumentResponse.build(document_id, result)
+    # Only successful extractions are stored. Incomplete ones return 422 above; their PDF stays
+    # in S3 until the bucket's 30-day expiry.
+    try:
+        stored = from_extraction(document_id, key, year, result, settings)
+    except MissingHmacKeyError:
+        logger.error("EXTRACTION_TIN_HMAC_KEY is not configured; refusing to store document")
+        raise HTTPException(
+            status.HTTP_500_INTERNAL_SERVER_ERROR, "Server configuration error"
+        ) from None
+    repo.add(stored)
+    return DocumentResponse.from_stored(stored)
+
+
+def _load(repo: DocumentRepository, document_id: UUID):
+    doc = repo.get(document_id)
+    if doc is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Document not found")
+    return doc
+
+
+@router.get("/{document_id}", response_model=DocumentResponse)
+def get_document(document_id: UUID, repo: Annotated[DocumentRepository, Depends(get_repository)]):
+    return DocumentResponse.from_stored(_load(repo, document_id))
+
+
+@router.patch(
+    "/{document_id}/fields/{field_name}",
+    response_model=DocumentResponse,
+    responses={
+        404: {"description": "Unknown document or field"},
+        422: {"description": "Invalid value"},
+    },
+)
+def correct_field(
+    document_id: UUID,
+    field_name: str,
+    body: CorrectionRequest,
+    repo: Annotated[DocumentRepository, Depends(get_repository)],
+    settings: Annotated[Settings, Depends(get_settings)],
+):
+    """Correct one extracted value. The whole document is re-validated and the review rules
+    re-run, so fixing one box can clear (or raise) other flags."""
+    doc = _load(repo, document_id)
+    try:
+        updated = apply_correction(doc, field_name, body.value, body.corrected_by, settings)
+    except UnknownFieldError:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND, f"{doc.form_type} has no field '{field_name}'"
+        ) from None
+    except ValidationError as exc:
+        # Report which rule failed, but never echo the submitted value (it may be an SSN).
+        messages = sorted({err["msg"] for err in exc.errors()})
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
+            f"Invalid value for {field_name}: {'; '.join(messages)}",
+        ) from None
+    repo.update(updated)
+    return DocumentResponse.from_stored(updated)

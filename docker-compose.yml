@@ -27,6 +27,9 @@ services:
       EXTRACTION_DATABASE_URL: mysql+pymysql://${MYSQL_USER:-taxdoc}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE:-taxdoc}
       EXTRACTION_S3_BUCKET: ${EXTRACTION_S3_BUCKET:-}
       EXTRACTION_AWS_REGION: ${AWS_REGION:-us-east-1}
+      EXTRACTION_TIN_HMAC_KEY: ${EXTRACTION_TIN_HMAC_KEY:?set in .env}
+    # Apply database migrations, then start the API.
+    command: ["sh", "-c", "/app/.venv/bin/alembic upgrade head && /app/.venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000"]
     ports:
       - "8000:8000"
     depends_on:
