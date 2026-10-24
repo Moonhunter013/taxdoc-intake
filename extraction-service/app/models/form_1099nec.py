@@ -21,10 +21,10 @@ class Form1099NEC(StrictModel):
     recipient_tin: TIN | None = Field(default=None, repr=False)
 
     box1a_nonemployee_comp: Money
-    box4_federal_withholding: Money = Decimal("0")
+    box4_federal_withholding: Money = Decimal("0.00")
     box6_state: StateCode | None = None
     box6_state_id: str | None = None
-    box7_state_income: Money = Decimal("0")
+    box7_state_income: Money = Decimal("0.00")
 
     @model_validator(mode="after")
     def _state_fields_consistent(self) -> Form1099NEC:

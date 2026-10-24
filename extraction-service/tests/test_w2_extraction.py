@@ -1,10 +1,9 @@
-import copy
 from decimal import Decimal
 
 import pytest
 
 from app.extraction import IncompleteExtractionError, TextractDocument, map_w2
-from tests.fixtures import expected_document, fixture_names, load_fixture
+from tests.fixtures import expected_document, fixture_names, load_fixture, without_field
 
 W2_FIXTURES = fixture_names("*_w2*")
 
@@ -66,18 +65,7 @@ def test_field_metadata_records_confidence_and_source():
 
 
 def test_missing_required_box_raises_with_partial_result():
-    response = copy.deepcopy(load_fixture("client-01_w2"))
-    doc = TextractDocument(response)
-    box1_key = next(kv for kv in doc.key_values if kv.label.startswith("1 wages"))
-    response["Blocks"] = [
-        b
-        for b in response["Blocks"]
-        if not (
-            b["BlockType"] == "KEY_VALUE_SET"
-            and b["Geometry"]["BoundingBox"]["Top"] == box1_key.box.top
-            and b["Geometry"]["BoundingBox"]["Left"] == box1_key.box.left
-        )
-    ]
+    response = without_field(load_fixture("client-01_w2"), "1 Wages")
     with pytest.raises(IncompleteExtractionError) as exc_info:
         map_w2(TextractDocument(response))
     assert exc_info.value.missing == ["box1_wages"]

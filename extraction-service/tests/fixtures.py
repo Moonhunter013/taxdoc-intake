@@ -24,3 +24,25 @@ def expected_document(name: str) -> dict:
 
 def fixture_names(pattern: str) -> list[str]:
     return sorted(p.stem for p in FIXTURES.glob(f"{pattern}.json"))
+
+
+def without_field(response: dict, label_start: str) -> dict:
+    """Copy of a Textract response with one key-value pair removed (simulates a missed field).
+
+    `label_start` is matched against the start of the printed label, e.g. "1 Wages".
+    """
+    blocks = {b["Id"]: b for b in response["Blocks"]}
+
+    def words(block):
+        ids = [i for r in block.get("Relationships", []) if r["Type"] == "CHILD" for i in r["Ids"]]
+        return " ".join(blocks[i].get("Text", "") for i in ids)
+
+    drop = set()
+    for block in response["Blocks"]:
+        if block["BlockType"] == "KEY_VALUE_SET" and words(block).startswith(label_start):
+            drop.add(block["Id"])
+            for rel in block.get("Relationships", []):
+                if rel["Type"] == "VALUE":
+                    drop.update(rel["Ids"])
+    assert drop, f"no key-value pair starting with {label_start!r}"
+    return {**response, "Blocks": [b for b in response["Blocks"] if b["Id"] not in drop]}
