@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Fields Textract consistently reports at ~72-80% confidence even when correct (the state row
@@ -24,6 +25,14 @@ class Settings(BaseSettings):
     database_url: str = "mysql+pymysql://taxdoc:taxdoc@localhost:3306/taxdoc"
     s3_bucket: str = ""
     aws_region: str = "us-east-1"
+    # Local dev uses a named CLI profile (AWS_PROFILE in the repo-root .env). In AWS (ECS) leave
+    # it unset so boto3 uses the task's IAM role.
+    aws_profile: str | None = Field(
+        default=None, validation_alias=AliasChoices("EXTRACTION_AWS_PROFILE", "AWS_PROFILE")
+    )
+
+    # --- Uploads (issue 7) ---
+    max_upload_bytes: int = 5 * 1024 * 1024
 
     # --- Human review (issue 6) ---
     review_default_threshold: float = 90.0

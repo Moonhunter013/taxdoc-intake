@@ -33,8 +33,8 @@ class W2(StrictModel):
     # One state row. Real W-2s can have two; add a list when a client needs it.
     box15_state: StateCode | None = None
     box15_state_id: str | None = None
-    box16_state_wages: Money = Decimal("0")
-    box17_state_tax: Money = Decimal("0")
+    box16_state_wages: Money = Decimal("0.00")
+    box17_state_tax: Money = Decimal("0.00")
 
     @model_validator(mode="after")
     def _state_fields_consistent(self) -> W2:
