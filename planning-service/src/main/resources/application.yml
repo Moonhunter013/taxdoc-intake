@@ -5,6 +5,11 @@ spring:
   application:
     name: planning-service
 
+  # Federal limits and rates by tax year (issue #20). Kept in their own file because they
+  # change every year and each value carries its source link.
+  config:
+    import: classpath:tax-years.yml
+
   # Planning's own schema and user (ADR-0003); never extraction's tables.
   # docker compose overrides these with SPRING_DATASOURCE_* environment variables.
   datasource:

@@ -1,0 +1,87 @@
+# Federal tax constants by tax year, used by the strategy engine (issue #20).
+#
+# Every value was checked against the primary source linked next to it, on 2026-10-25.
+# Adding a year: copy the whole block, update each value from that year's IRS/SSA
+# announcements (normally published October-November), and update the links. The service refuses to
+# start if any value is missing, and plans for a year that isn't listed get HTTP 422.
+#
+# Money is in US dollars, rates are fractions (0.062 = 6.2%).
+taxdoc:
+  tax-rules:
+    years:
+      2026:
+        # SSA 2026 COLA fact sheet: https://www.ssa.gov/news/en/cola/factsheets/2026.html
+        social-security:
+          wage-base: 184500              # maximum taxable earnings (OASDI)
+          employee-rate: 0.062           # OASDI, employee share (employer pays the same)
+          medicare-rate: 0.0145          # HI, employee share, no wage limit
+          # Additional Medicare tax: 0.9% above $200,000 ($250,000 married filing jointly).
+          # Statutory (IRC 3101(b)(2)), not inflation-indexed; amounts as stated on the SSA fact sheet above.
+          additional-medicare-rate: 0.009
+          additional-medicare-threshold:
+            single: 200000
+            married-filing-jointly: 250000
+            head-of-household: 200000
+
+        # IRS Topic 554: https://www.irs.gov/taxtopics/tc554
+        # SE tax rate is both shares together (12.4% + 2.9%), applied to 92.35% of net earnings.
+        self-employment:
+          net-earnings-factor: 0.9235
+
+        # IRS Notice 2025-67: https://www.irs.gov/pub/irs-drop/n-25-67.pdf
+        # Cross-checked: https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions
+        retirement:
+          elective-deferral-limit: 24500     # 402(g)(1): 401(k)/403(b) employee deferrals
+          catch-up-age-50: 8000              # 414(v)(2)(B)(i)
+          catch-up-age-60-to-63: 11250       # 414(v)(2)(E)(i): replaces the age-50 amount at 60-63
+          annual-additions-limit: 72000      # 415(c)(1)(A): employee + employer, per plan
+          compensation-limit: 360000         # 401(a)(17)
+          # Employer/SEP contribution as a share of compensation. For a self-employed person it
+          # applies to net earnings after half of SE tax, which works out to 20%.
+          # IRS Publication 560: https://www.irs.gov/publications/p560
+          employer-contribution-rate: 0.25
+          ira-limit: 7500                    # 219(b)(5)(A)
+          ira-catch-up: 1100                 # 219(b)(5)(B), age 50+
+
+        # IRS Rev. Proc. 2025-19: https://www.irs.gov/pub/irs-drop/rp-25-19.pdf
+        hsa:
+          self-only-limit: 4400
+          family-limit: 8750
+          # Age 55+, statutory (IRC 223(b)(3)), not indexed.
+          # IRS Publication 969: https://www.irs.gov/publications/p969
+          catch-up-age-55: 1000
+
+        # IRS Rev. Proc. 2025-32, section 4.14: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf
+        standard-deduction:
+          single: 16100
+          married-filing-jointly: 32200
+          head-of-household: 24150
+
+        # IRS Rev. Proc. 2025-32, section 4.01, tables 1-3 (same link as above).
+        # Each entry: the rate applies to taxable income above "over" (up to the next entry).
+        # PublishedBracketsTest checks these reproduce the IRS's published tax at each boundary.
+        brackets:
+          single:
+            - { over: 0,      rate: 0.10 }
+            - { over: 12400,  rate: 0.12 }
+            - { over: 50400,  rate: 0.22 }
+            - { over: 105700, rate: 0.24 }
+            - { over: 201775, rate: 0.32 }
+            - { over: 256225, rate: 0.35 }
+            - { over: 640600, rate: 0.37 }
+          married-filing-jointly:
+            - { over: 0,      rate: 0.10 }
+            - { over: 24800,  rate: 0.12 }
+            - { over: 100800, rate: 0.22 }
+            - { over: 211400, rate: 0.24 }
+            - { over: 403550, rate: 0.32 }
+            - { over: 512450, rate: 0.35 }
+            - { over: 768700, rate: 0.37 }
+          head-of-household:
+            - { over: 0,      rate: 0.10 }
+            - { over: 17700,  rate: 0.12 }
+            - { over: 67450,  rate: 0.22 }
+            - { over: 105700, rate: 0.24 }
+            - { over: 201750, rate: 0.32 }
+            - { over: 256200, rate: 0.35 }
+            - { over: 640600, rate: 0.37 }
