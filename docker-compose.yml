@@ -49,6 +49,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/planning
       SPRING_DATASOURCE_USERNAME: planning
       SPRING_DATASOURCE_PASSWORD: ${PLANNING_DB_PASSWORD:?set in .env}
+      # No depends_on for extraction: planning starts without it and returns 503 while it's down.
+      EXTRACTION_BASE_URL: http://extraction-service:8000
     ports:
       - "8080:8080"
     depends_on:

@@ -27,6 +27,14 @@ spring:
   flyway:
     locations: classpath:db/migration
 
+taxdoc:
+  # Planning reads documents through extraction's API, never its database (ADR-0003).
+  # docker compose sets EXTRACTION_BASE_URL to the extraction-service container.
+  extraction:
+    base-url: ${EXTRACTION_BASE_URL:http://localhost:8000}
+    connect-timeout: 2s
+    read-timeout: 5s
+
 management:
   endpoints:
     web:

@@ -1,0 +1,324 @@
+{
+  "client_ref": "client-10",
+  "documents": [
+    {
+      "document_id": "c1217a33-d315-4738-adad-208f9ae109b2",
+      "form_type": "W-2",
+      "tax_year": 2026,
+      "client_ref": "client-10",
+      "needs_review": false,
+      "document": {
+        "employer_name": "Wabash Data Systems Inc",
+        "employer_ein": "**-***2781",
+        "employer_address": "350 N Orleans St, Chicago, IL 60654",
+        "employee_name": "Imogen Castellanos",
+        "employee_ssn": "***-**-2780",
+        "box1_wages": "76500.00",
+        "box2_federal_withholding": "14535.00",
+        "box3_ss_wages": "82500.00",
+        "box4_ss_tax": "5115.00",
+        "box5_medicare_wages": "82500.00",
+        "box6_medicare_tax": "1196.25",
+        "box12": [
+          {
+            "code": "D",
+            "amount": "6000.00"
+          },
+          {
+            "code": "W",
+            "amount": "1500.00"
+          }
+        ],
+        "box13_retirement_plan": true,
+        "box15_state": "IL",
+        "box15_state_id": "00094279",
+        "box16_state_wages": "76500.00",
+        "box17_state_tax": "3786.75"
+      },
+      "fields": {
+        "employer_name": {
+          "confidence": 95.42338562011719,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_address": {
+          "confidence": 95.42338562011719,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_ein": {
+          "confidence": 94.76834106445312,
+          "source_label": "b Employer identification number (EIN)",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_ssn": {
+          "confidence": 93.55169677734375,
+          "source_label": "a Employee's social security number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_name": {
+          "confidence": 90.27984619140625,
+          "source_label": "e Employee's first name and initial Last name Suff.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1_wages": {
+          "confidence": 94.71581268310547,
+          "source_label": "1 Wages, tips, other compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box2_federal_withholding": {
+          "confidence": 94.58802032470703,
+          "source_label": "2 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box3_ss_wages": {
+          "confidence": 95.18244171142578,
+          "source_label": "3 Social security wages",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_ss_tax": {
+          "confidence": 95.07621765136719,
+          "source_label": "4 Social security tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box5_medicare_wages": {
+          "confidence": 95.43025207519531,
+          "source_label": "5 Medicare wages and tips",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_medicare_tax": {
+          "confidence": 95.31390380859375,
+          "source_label": "6 Medicare tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box16_state_wages": {
+          "confidence": 80.0,
+          "source_label": "16 State wages, tips, etc.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box17_state_tax": {
+          "confidence": 79.703125,
+          "source_label": "17 State income tax",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box13_retirement_plan": {
+          "confidence": 94.46026611328125,
+          "source_label": "Retirement plan",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state": {
+          "confidence": 72.50570678710938,
+          "source_label": "State",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state_id": {
+          "confidence": 75.91677856445312,
+          "source_label": "Employer's state ID number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box12": {
+          "confidence": 99.71281433105469,
+          "source_label": null,
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    },
+    {
+      "document_id": "58f266d8-953d-4685-a7e2-83829eeefab1",
+      "form_type": "W-2",
+      "tax_year": 2026,
+      "client_ref": "client-10",
+      "needs_review": false,
+      "document": {
+        "employer_name": "Lakeshore Capital Group LLC",
+        "employer_ein": "**-***2780",
+        "employer_address": "200 W Madison St, Chicago, IL 60606",
+        "employee_name": "Imogen Castellanos",
+        "employee_ssn": "***-**-2780",
+        "box1_wages": "104000.00",
+        "box2_federal_withholding": "19760.00",
+        "box3_ss_wages": "112000.00",
+        "box4_ss_tax": "6944.00",
+        "box5_medicare_wages": "112000.00",
+        "box6_medicare_tax": "1624.00",
+        "box12": [
+          {
+            "code": "D",
+            "amount": "8000.00"
+          }
+        ],
+        "box13_retirement_plan": true,
+        "box15_state": "IL",
+        "box15_state_id": "00094278",
+        "box16_state_wages": "104000.00",
+        "box17_state_tax": "5148.00"
+      },
+      "fields": {
+        "employer_name": {
+          "confidence": 95.44000244140625,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_address": {
+          "confidence": 95.44000244140625,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_ein": {
+          "confidence": 94.80238342285156,
+          "source_label": "b Employer identification number (EIN)",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_ssn": {
+          "confidence": 93.5727767944336,
+          "source_label": "a Employee's social security number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_name": {
+          "confidence": 90.72139739990234,
+          "source_label": "e Employee's first name and initial Last name Suff.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1_wages": {
+          "confidence": 94.7902603149414,
+          "source_label": "1 Wages, tips, other compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box2_federal_withholding": {
+          "confidence": 94.56639099121094,
+          "source_label": "2 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box3_ss_wages": {
+          "confidence": 95.24542999267578,
+          "source_label": "3 Social security wages",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_ss_tax": {
+          "confidence": 95.07749938964844,
+          "source_label": "4 Social security tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box5_medicare_wages": {
+          "confidence": 95.45104217529297,
+          "source_label": "5 Medicare wages and tips",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_medicare_tax": {
+          "confidence": 95.35697174072266,
+          "source_label": "6 Medicare tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box16_state_wages": {
+          "confidence": 80.0,
+          "source_label": "16 State wages, tips, etc.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box17_state_tax": {
+          "confidence": 79.74126434326172,
+          "source_label": "17 State income tax",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box13_retirement_plan": {
+          "confidence": 94.51193237304688,
+          "source_label": "Retirement plan",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state": {
+          "confidence": 72.43272399902344,
+          "source_label": "State",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state_id": {
+          "confidence": 75.89631652832031,
+          "source_label": "Employer's state ID number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box12": {
+          "confidence": 99.89098358154297,
+          "source_label": null,
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "c1217a33-d315-4738-adad-208f9ae109b2",
+      "58f266d8-953d-4685-a7e2-83829eeefab1"
+    ]
+  ],
+  "warnings": []
+}

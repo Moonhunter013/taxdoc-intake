@@ -1,0 +1,259 @@
+{
+  "client_ref": "client-03",
+  "documents": [
+    {
+      "document_id": "2a541a0d-4e00-4a9f-8aee-e41281a9dbb6",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-03",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Pixelforge Studio LLC",
+        "payer_tin": "**-***8811",
+        "payer_address": "48 Short North Way, Columbus, OH 43201",
+        "recipient_name": "Desmond Okafor",
+        "recipient_tin": "***-**-8810",
+        "box1a_nonemployee_comp": "42000.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": "OH",
+        "box6_state_id": "00031882",
+        "box7_state_income": "42000.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.8731918334961,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.19512939453125,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.40646362304688,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 95.05264282226562,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.30078125,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.35488891601562,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.3001708984375,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state": {
+          "confidence": 76.11112213134766,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state_id": {
+          "confidence": 76.11112213134766,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box7_state_income": {
+          "confidence": 93.54801940917969,
+          "source_label": "7 State income",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    },
+    {
+      "document_id": "ef0c2151-09bd-4dce-abca-d59e4c4b3d7a",
+      "form_type": "W-2",
+      "tax_year": 2026,
+      "client_ref": "client-03",
+      "needs_review": false,
+      "document": {
+        "employer_name": "Riverbend Health Systems",
+        "employer_ein": "**-***8810",
+        "employer_address": "500 Scioto Mile, Columbus, OH 43215",
+        "employee_name": "Desmond Okafor",
+        "employee_ssn": "***-**-8810",
+        "box1_wages": "52250.00",
+        "box2_federal_withholding": "5225.00",
+        "box3_ss_wages": "55000.00",
+        "box4_ss_tax": "3410.00",
+        "box5_medicare_wages": "55000.00",
+        "box6_medicare_tax": "797.50",
+        "box12": [
+          {
+            "code": "D",
+            "amount": "2750.00"
+          }
+        ],
+        "box13_retirement_plan": true,
+        "box15_state": "OH",
+        "box15_state_id": "00031881",
+        "box16_state_wages": "52250.00",
+        "box17_state_tax": "1463.00"
+      },
+      "fields": {
+        "employer_name": {
+          "confidence": 95.4325942993164,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_address": {
+          "confidence": 95.4325942993164,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_ein": {
+          "confidence": 94.77415466308594,
+          "source_label": "b Employer identification number (EIN)",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_ssn": {
+          "confidence": 93.53460693359375,
+          "source_label": "a Employee's social security number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_name": {
+          "confidence": 86.93482208251953,
+          "source_label": "e Employee's first name and initial Last name Suff.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1_wages": {
+          "confidence": 94.70563507080078,
+          "source_label": "1 Wages, tips, other compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box2_federal_withholding": {
+          "confidence": 94.58043670654297,
+          "source_label": "2 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box3_ss_wages": {
+          "confidence": 95.17851257324219,
+          "source_label": "3 Social security wages",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_ss_tax": {
+          "confidence": 95.06278991699219,
+          "source_label": "4 Social security tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box5_medicare_wages": {
+          "confidence": 95.45298767089844,
+          "source_label": "5 Medicare wages and tips",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_medicare_tax": {
+          "confidence": 95.35482788085938,
+          "source_label": "6 Medicare tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box16_state_wages": {
+          "confidence": 80.0,
+          "source_label": "16 State wages, tips, etc.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box17_state_tax": {
+          "confidence": 79.65991973876953,
+          "source_label": "17 State income tax",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box13_retirement_plan": {
+          "confidence": 94.40680694580078,
+          "source_label": "Retirement plan",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state": {
+          "confidence": 73.18089294433594,
+          "source_label": "State",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state_id": {
+          "confidence": 75.89864349365234,
+          "source_label": "Employer's state ID number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box12": {
+          "confidence": 99.79093933105469,
+          "source_label": null,
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "2a541a0d-4e00-4a9f-8aee-e41281a9dbb6",
+      "ef0c2151-09bd-4dce-abca-d59e4c4b3d7a"
+    ]
+  ],
+  "warnings": []
+}
