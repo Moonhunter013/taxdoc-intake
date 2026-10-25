@@ -25,6 +25,7 @@ from app.api.dependencies import (
     get_textract_client,
 )
 from app.api.schemas import (
+    CLIENT_REF_PATTERN,
     CorrectionRequest,
     DocumentResponse,
     IncompleteDocumentResponse,
@@ -79,6 +80,10 @@ async def upload_document(
     textract: Annotated[object, Depends(get_textract_client)],
     repo: Annotated[DocumentRepository, Depends(get_repository)],
     tax_year: Annotated[int | None, Form(ge=2000, le=2100)] = None,
+    client_ref: Annotated[
+        str | None,
+        Form(pattern=CLIENT_REF_PATTERN, description="Advisor's client ID, e.g. client-10"),
+    ] = None,
 ):
     data = await file.read(settings.max_upload_bytes + 1)
     _validate_pdf(data, settings.max_upload_bytes)
@@ -116,7 +121,7 @@ async def upload_document(
     # Only successful extractions are stored. Incomplete ones return 422 above; their PDF stays
     # in S3 until the bucket's 30-day expiry.
     try:
-        stored = from_extraction(document_id, key, year, result, settings)
+        stored = from_extraction(document_id, key, year, result, settings, client_ref=client_ref)
     except MissingHmacKeyError:
         logger.error("EXTRACTION_TIN_HMAC_KEY is not configured; refusing to store document")
         raise HTTPException(

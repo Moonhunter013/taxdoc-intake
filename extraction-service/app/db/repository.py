@@ -27,6 +27,7 @@ class DocumentRepository(Protocol):
     def get(self, document_id: UUID) -> StoredDocument | None: ...
     def update(self, doc: StoredDocument) -> None: ...
     def list_by_taxpayer_hash(self, tin_hash: str) -> list[StoredDocument]: ...
+    def list_by_client(self, client_ref: str) -> list[StoredDocument]: ...
 
 
 class InMemoryDocumentRepository:
@@ -45,6 +46,10 @@ class InMemoryDocumentRepository:
 
     def list_by_taxpayer_hash(self, tin_hash: str) -> list[StoredDocument]:
         return [copy.deepcopy(d) for d in self._docs.values() if d.taxpayer_tin_hash == tin_hash]
+
+    def list_by_client(self, client_ref: str) -> list[StoredDocument]:
+        docs = [d for d in self._docs.values() if d.client_ref == client_ref]
+        return [copy.deepcopy(d) for d in sorted(docs, key=lambda d: d.created_at, reverse=True)]
 
 
 # --- MySQL ---------------------------------------------------------------------------------
@@ -78,6 +83,7 @@ def _fill_document_row(row: DocumentRow, doc: StoredDocument) -> None:
     row.form_type = doc.form_type.value
     row.tax_year = doc.tax_year
     row.s3_key = doc.s3_key
+    row.client_ref = doc.client_ref
     row.status = "needs_review" if doc.needs_review else "ready"
     row.needs_review = doc.needs_review
     row.review_reasons = doc.review_reasons
@@ -119,6 +125,7 @@ def _to_stored(row: DocumentRow) -> StoredDocument:
         form_type=FormType(row.form_type),
         tax_year=row.tax_year,
         s3_key=row.s3_key,
+        client_ref=row.client_ref,
         values=values,
         fields=fields,
         tin_hashes=hashes,
@@ -156,5 +163,13 @@ class SqlDocumentRepository:
             select(DocumentRow)
             .where(DocumentRow.taxpayer_tin_hash == tin_hash)
             .order_by(DocumentRow.created_at)
+        )
+        return [_to_stored(r) for r in rows]
+
+    def list_by_client(self, client_ref: str) -> list[StoredDocument]:
+        rows = self.session.scalars(
+            select(DocumentRow)
+            .where(DocumentRow.client_ref == client_ref)
+            .order_by(DocumentRow.created_at.desc(), DocumentRow.id)
         )
         return [_to_stored(r) for r in rows]

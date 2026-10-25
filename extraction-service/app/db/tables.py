@@ -35,6 +35,8 @@ class DocumentRow(Base):
     form_type: Mapped[str] = mapped_column(String(16))
     tax_year: Mapped[int] = mapped_column(SmallInteger)
     s3_key: Mapped[str] = mapped_column(String(255), unique=True)
+    # Advisor-assigned client identifier (ADR-0006); nullable for documents uploaded without one.
+    client_ref: Mapped[str | None] = mapped_column(String(64), index=True)
     status: Mapped[str] = mapped_column(String(16))  # "needs_review" | "ready"
     needs_review: Mapped[bool] = mapped_column(Boolean)
     review_reasons: Mapped[list] = mapped_column(JSON)

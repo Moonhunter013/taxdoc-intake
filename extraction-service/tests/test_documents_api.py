@@ -289,3 +289,75 @@ def test_missing_hmac_key_refuses_to_store(api, repo):
     resp = upload(client, pdf_bytes())
     assert resp.status_code == 500
     assert resp.json()["detail"] == "Server configuration error"
+
+
+# --- clients (#18) ----------------------------------------------------------------------------
+
+
+def upload_for(client, set_textract, fixture: str, client_ref: str):
+    set_textract(FakeTextract(load_fixture(fixture)))
+    resp = upload(client, pdf_bytes(), client_ref=client_ref)
+    assert resp.status_code == 201, resp.text
+    return resp.json()
+
+
+def test_client_ref_is_stored_and_returned(api):
+    client, _, set_textract = api
+    body = upload_for(client, set_textract, "client-01_w2", "client-01")
+    assert body["client_ref"] == "client-01"
+    assert client.get(f"{URL}/{body['document_id']}").json()["client_ref"] == "client-01"
+
+
+def test_lists_a_clients_documents_newest_first(api):
+    client, _, set_textract = api
+    first = upload_for(client, set_textract, "client-10_w2_1", "client-10")
+    second = upload_for(client, set_textract, "client-10_w2_2", "client-10")
+    upload_for(client, set_textract, "client-01_w2", "client-01")  # another client
+
+    body = client.get("/api/v1/clients/client-10/documents").json()
+    assert [d["document_id"] for d in body["documents"]] == [
+        second["document_id"],
+        first["document_id"],
+    ]
+    # Same employee on both W-2s: one taxpayer, no warning
+    assert len(body["taxpayer_groups"]) == 1
+    assert body["warnings"] == []
+
+
+def test_w2_and_1099_for_the_same_person_are_one_taxpayer(api):
+    client, _, set_textract = api
+    upload_for(client, set_textract, "client-06_w2", "client-06")  # employee SSN
+    upload_for(client, set_textract, "client-06_1099nec", "client-06")  # recipient TIN
+    body = client.get("/api/v1/clients/client-06/documents").json()
+    assert len(body["taxpayer_groups"]) == 1
+
+
+def test_documents_from_different_taxpayers_are_flagged(api):
+    client, _, set_textract = api
+    mine = upload_for(client, set_textract, "client-01_w2", "client-01")
+    misfiled = upload_for(client, set_textract, "client-02_1099nec_1", "client-01")
+    body = client.get("/api/v1/clients/client-01/documents").json()
+    assert sorted(map(sorted, body["taxpayer_groups"])) == sorted(
+        [[mine["document_id"]], [misfiled["document_id"]]]
+    )
+    assert "2 different taxpayers" in body["warnings"][0]
+    assert "000-" not in str(body)  # no full SSNs anywhere
+
+
+def test_unknown_client_returns_empty_list(api):
+    client, _, _ = api
+    body = client.get("/api/v1/clients/new-client/documents").json()
+    assert body == {
+        "client_ref": "new-client",
+        "documents": [],
+        "taxpayer_groups": [],
+        "warnings": [],
+    }
+
+
+@pytest.mark.parametrize("bad", ["../etc", "has space", "x" * 65, "-leading-dash"])
+def test_invalid_client_ref_is_rejected(api, bad):
+    client, s3, _ = api
+    resp = upload(client, pdf_bytes(), client_ref=bad)
+    assert resp.status_code == 422
+    assert s3.objects == {}  # rejected before anything is stored

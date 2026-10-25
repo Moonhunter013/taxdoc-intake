@@ -45,6 +45,7 @@ class StoredDocument(BaseModel):
     form_type: FormType
     tax_year: int
     s3_key: str
+    client_ref: str | None = None
     values: dict[str, Any] = Field(description="Field values; TIN fields hold masked values")
     fields: dict[str, FieldMeta] = Field(default_factory=dict)
     tin_hashes: dict[str, str] = Field(default_factory=dict)
@@ -74,7 +75,12 @@ def _minimize(values: dict[str, Any], key: str) -> tuple[dict[str, Any], dict[st
 
 
 def from_extraction(
-    document_id: UUID, s3_key: str, tax_year: int, result: ExtractionResult, settings: Settings
+    document_id: UUID,
+    s3_key: str,
+    tax_year: int,
+    result: ExtractionResult,
+    settings: Settings,
+    client_ref: str | None = None,
 ) -> StoredDocument:
     now = datetime.now(UTC)
     values, hashes = _minimize(
@@ -85,6 +91,7 @@ def from_extraction(
         form_type=result.form_type,
         tax_year=tax_year,
         s3_key=s3_key,
+        client_ref=client_ref,
         values=values,
         fields=result.fields,
         tin_hashes=hashes,
@@ -158,6 +165,20 @@ def apply_correction(
     )
 
 
+def group_by_taxpayer(docs: list[StoredDocument]) -> list[list[UUID]]:
+    """Group documents by taxpayer (matched on the keyed TIN hash, ADR-0005).
+
+    Documents without a taxpayer TIN form their own group. More than one group for a single
+    client usually means a misfiled document (e.g. a spouse's W-2). Only document IDs are
+    returned; hashes never leave the service.
+    """
+    groups: dict[str, list[UUID]] = {}
+    for doc in docs:
+        key = doc.taxpayer_tin_hash or f"unknown:{doc.id}"
+        groups.setdefault(key, []).append(doc.id)
+    return list(groups.values())
+
+
 def jsonable(value: Any) -> Any:
     """Decimals as exact strings ('203000.00'), never floats."""
     if isinstance(value, Decimal):
@@ -175,4 +196,5 @@ __all__ = [
     "from_extraction",
     "apply_correction",
     "jsonable",
+    "group_by_taxpayer",
 ]

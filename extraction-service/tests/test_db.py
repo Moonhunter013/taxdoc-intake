@@ -145,6 +145,20 @@ def test_correction_is_persisted_with_audit_fields(repo):
     assert loaded.fields["box17_state_tax"].corrected_at is not None
 
 
+def test_client_ref_column_and_listing(repo, engine):
+    insp = inspect(engine)
+    assert "client_ref" in {c["name"] for c in insp.get_columns("documents")}
+    assert "ix_documents_client_ref" in {i["name"] for i in insp.get_indexes("documents")}
+
+    older = stored("client-10_w2_1").model_copy(update={"client_ref": "client-10"})
+    newer = stored("client-10_w2_2").model_copy(update={"client_ref": "client-10"})
+    newer = newer.model_copy(update={"created_at": older.created_at.replace(year=2027)})
+    repo.add(older)
+    repo.add(newer)
+    assert [d.id for d in repo.list_by_client("client-10")] == [newer.id, older.id]
+    assert repo.list_by_client("nobody") == []
+
+
 def test_migration_downgrade_and_upgrade(db_url, engine):
     cfg = alembic_config(db_url)
     command.downgrade(cfg, "base")
