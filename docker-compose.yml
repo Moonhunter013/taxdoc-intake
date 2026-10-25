@@ -10,16 +10,23 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-taxdoc}
       MYSQL_USER: ${MYSQL_USER:-taxdoc}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?set in .env}
+      # Used by db/init/02-planning-db.sh to create planning-service's own schema and user.
+      PLANNING_DB_PASSWORD: ${PLANNING_DB_PASSWORD:?set in .env}
     ports:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
       - ./db/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      # Must ping over TCP, not "-h localhost" (which uses the Unix socket). On first start the
+      # entrypoint runs a temporary server with networking disabled while it executes
+      # db/init/*, then restarts it. A socket ping reports healthy during that phase, so
+      # dependent services start, connect over the network and get "Connection refused".
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--protocol=tcp", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 5s
       retries: 20
+      start_period: 30s
 
   extraction-service:
     build: ./extraction-service
@@ -38,7 +45,10 @@ services:
 
   planning-service:
     build: ./planning-service
-    # Datasource settings (SPRING_DATASOURCE_*) are added in Week 2 with JPA + Flyway.
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/planning
+      SPRING_DATASOURCE_USERNAME: planning
+      SPRING_DATASOURCE_PASSWORD: ${PLANNING_DB_PASSWORD:?set in .env}
     ports:
       - "8080:8080"
     depends_on:

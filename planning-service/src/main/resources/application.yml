@@ -5,6 +5,23 @@ spring:
   application:
     name: planning-service
 
+  # Planning's own schema and user (ADR-0003); never extraction's tables.
+  # docker compose overrides these with SPRING_DATASOURCE_* environment variables.
+  datasource:
+    url: ${PLANNING_DB_URL:jdbc:mysql://localhost:3306/planning}
+    username: ${PLANNING_DB_USER:planning}
+    password: ${PLANNING_DB_PASSWORD:}
+
+  jpa:
+    # Flyway owns the schema. Hibernate only checks that entities match it, and refuses to
+    # start if they don't, so a forgotten migration fails fast instead of at runtime.
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    locations: classpath:db/migration
+
 management:
   endpoints:
     web:
