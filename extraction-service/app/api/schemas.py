@@ -20,6 +20,7 @@ class DocumentResponse(BaseModel):
     document_id: UUID
     form_type: FormType
     tax_year: int
+    client_ref: str | None
     needs_review: bool
     document: dict[str, Any]
     fields: dict[str, FieldMeta]
@@ -33,6 +34,7 @@ class DocumentResponse(BaseModel):
             document_id=doc.id,
             form_type=doc.form_type,
             tax_year=doc.tax_year,
+            client_ref=doc.client_ref,
             needs_review=doc.needs_review,
             document=masked(jsonable(doc.values)),
             fields=doc.fields,
@@ -51,4 +53,17 @@ class IncompleteDocumentResponse(BaseModel):
     form_type: str
     missing_fields: list[str]
     partial: dict[str, Any]
+    warnings: list[str]
+
+
+# Letters, digits, '-' and '_' only: safe in URLs and logs, and can't smuggle path segments.
+CLIENT_REF_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
+
+
+class ClientDocumentsResponse(BaseModel):
+    client_ref: str
+    documents: list[DocumentResponse]
+    taxpayer_groups: list[list[UUID]] = Field(
+        description="Document IDs grouped by taxpayer. More than one group = check for misfiling"
+    )
     warnings: list[str]

@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.api.clients import router as clients_router
 from app.api.documents import router as documents_router
 
 app = FastAPI(
@@ -8,6 +9,7 @@ app = FastAPI(
     description="Upload W-2 and 1099-NEC PDFs; get validated, structured data back.",
 )
 app.include_router(documents_router)
+app.include_router(clients_router)
 
 
 @app.get("/health", tags=["ops"])
