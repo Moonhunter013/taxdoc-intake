@@ -1,0 +1,198 @@
+{
+  "client_ref": "client-02",
+  "documents": [
+    {
+      "document_id": "481b809c-a405-49c5-828f-ee0342862bc7",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-02",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Coastal Ferry Authority Co",
+        "payer_tin": "**-***5533",
+        "payer_address": "15 Harbor View Dr, Mt Pleasant, SC 29464",
+        "recipient_name": "Marisol Etxeberria",
+        "recipient_tin": "***-**-5532",
+        "box1a_nonemployee_comp": "66500.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": "SC",
+        "box6_state_id": "00027554",
+        "box7_state_income": "66500.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.56401062011719,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.1666259765625,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.42890930175781,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 94.9925308227539,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.08460998535156,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.36807250976562,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.28987121582031,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state": {
+          "confidence": 76.11322784423828,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state_id": {
+          "confidence": 76.11322784423828,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box7_state_income": {
+          "confidence": 97.21221160888672,
+          "source_label": "line under box 7 label",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    },
+    {
+      "document_id": "288dff33-06bb-483d-ab2a-59bb73ffa974",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-02",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Brightline Logistics LLC",
+        "payer_tin": "**-***5532",
+        "payer_address": "900 Meeting St, Charleston, SC 29403",
+        "recipient_name": "Marisol Etxeberria",
+        "recipient_tin": "***-**-5532",
+        "box1a_nonemployee_comp": "118500.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": "SC",
+        "box6_state_id": "00027553",
+        "box7_state_income": "118500.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.7121353149414,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.19818115234375,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.45648193359375,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 94.98723602294922,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.26215362548828,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.36204528808594,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.29367065429688,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state": {
+          "confidence": 76.10717010498047,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state_id": {
+          "confidence": 76.10717010498047,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box7_state_income": {
+          "confidence": 93.36822509765625,
+          "source_label": "7 State income",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "481b809c-a405-49c5-828f-ee0342862bc7",
+      "288dff33-06bb-483d-ab2a-59bb73ffa974"
+    ]
+  ],
+  "warnings": []
+}
