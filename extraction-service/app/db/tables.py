@@ -68,6 +68,8 @@ class FieldRow(Base):
     confidence: Mapped[float | None] = mapped_column(Float)
     source_label: Mapped[str | None] = mapped_column(String(255))
     needs_review: Mapped[bool] = mapped_column(Boolean, default=False)
+    # Why this field needs review (migration 0003). NULL for rows written before it: read as [].
+    review_reasons: Mapped[list | None] = mapped_column(JSON, nullable=True)
     corrected_by: Mapped[str | None] = mapped_column(String(255))
     corrected_at: Mapped[datetime | None] = mapped_column(DateTime)
 

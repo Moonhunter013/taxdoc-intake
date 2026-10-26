@@ -32,6 +32,21 @@ describe('ExtractionApi', () => {
     req.flush(W2_DONE, { status: 201, statusText: 'Created' });
   });
 
+  it('loads one document by id', () => {
+    api.getDocument(W2_DONE.document_id).subscribe();
+    const req = http.expectOne(`/api/v1/documents/${W2_DONE.document_id}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(W2_DONE);
+  });
+
+  it('sends a correction as {value, corrected_by} to the field URL', () => {
+    api.correctField(W2_DONE.document_id, 'box4_ss_tax', '1439.00', 'Paul').subscribe();
+    const req = http.expectOne(`/api/v1/documents/${W2_DONE.document_id}/fields/box4_ss_tax`);
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body).toEqual({ value: '1439.00', corrected_by: 'Paul' });
+    req.flush(W2_DONE);
+  });
+
   it("reads a client's documents and warnings", () => {
     let warnings: string[] = [];
     api.clientDocuments('client-10').subscribe((c) => (warnings = c.warnings));

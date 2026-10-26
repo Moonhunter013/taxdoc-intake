@@ -16,9 +16,27 @@ export interface ExtractedDocument {
   client_ref: string | null;
   needs_review: boolean;
   document: Record<string, unknown>;
+  /** How each value was read and whether it needs checking. Not every field has an entry. */
+  fields: Record<string, FieldMeta>;
+  /** Every reason in one list; each field's own reasons are also in fields[name]. */
   review_reasons: string[];
   warnings: string[];
 }
+
+/** extraction's FieldMeta for one value. */
+export interface FieldMeta {
+  /** Textract confidence, 0-100 (100 once corrected by a person). */
+  confidence: number;
+  source_label: string | null;
+  needs_review: boolean;
+  /** Why this field needs review (#26); empty when it doesn't. */
+  review_reasons: string[];
+  corrected_by: string | null;
+  corrected_at: string | null;
+}
+
+/** A correction's value as extraction expects it: decimal string, text, boolean or box 12 rows. */
+export type CorrectionValue = string | boolean | null | { code: string; amount: string }[];
 
 /**
  * All of a client's documents (ClientDocumentsResponse). `warnings` is about the client as a
@@ -61,6 +79,28 @@ export class ExtractionApi {
         map((event) => toUploadEvent(event)),
         filter((event): event is UploadEvent => event !== null),
       );
+  }
+
+  /** One stored document. A 404 means the ID is unknown. */
+  getDocument(documentId: string): Observable<ExtractedDocument> {
+    return this.http.get<ExtractedDocument>(`/api/v1/documents/${encodeURIComponent(documentId)}`);
+  }
+
+  /**
+   * Corrects one field. extraction re-validates the whole document and re-runs the review rules,
+   * so the returned document can gain or lose flags on other fields too. A 422 means the value
+   * was rejected; its `detail` names the rule but never echoes the value (ADR-0005).
+   */
+  correctField(
+    documentId: string,
+    field: string,
+    value: CorrectionValue,
+    correctedBy: string,
+  ): Observable<ExtractedDocument> {
+    return this.http.patch<ExtractedDocument>(
+      `/api/v1/documents/${encodeURIComponent(documentId)}/fields/${encodeURIComponent(field)}`,
+      { value, corrected_by: correctedBy },
+    );
   }
 
   /** Every document uploaded for a client, plus client-level warnings. Unknown client: empty list. */

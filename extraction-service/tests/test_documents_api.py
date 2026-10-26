@@ -250,6 +250,24 @@ def test_patch_reruns_consistency_rules(api):
     assert fixed["review_reasons"] == []
 
 
+def test_patch_returns_the_reason_on_the_field_it_concerns(api):
+    """#26: the review screen shows each reason next to its box, from fields[name]."""
+    client, _, _ = api
+    doc_id = upload(client, pdf_bytes()).json()["document_id"]
+    bad = client.patch(
+        f"{URL}/{doc_id}/fields/box4_ss_tax", json={"value": "1439.00", "corrected_by": "paul"}
+    ).json()
+    [reason] = bad["fields"]["box4_ss_tax"]["review_reasons"]
+    assert "6.2% of box 3" in reason
+    assert reason in bad["review_reasons"]  # the document-level list is unchanged
+    assert bad["fields"]["box3_ss_wages"]["review_reasons"] == []  # only the box it's about
+
+    fixed = client.patch(
+        f"{URL}/{doc_id}/fields/box4_ss_tax", json={"value": "11439.00", "corrected_by": "paul"}
+    ).json()
+    assert fixed["fields"]["box4_ss_tax"]["review_reasons"] == []
+
+
 def test_patch_rejects_invalid_value_without_echoing_it(api):
     client, _, _ = api
     doc_id = upload(client, pdf_bytes()).json()["document_id"]

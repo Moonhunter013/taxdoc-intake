@@ -145,6 +145,31 @@ def test_correction_is_persisted_with_audit_fields(repo):
     assert loaded.fields["box17_state_tax"].corrected_at is not None
 
 
+def test_field_review_reasons_are_persisted(repo):
+    doc = stored("client-01_w2")
+    repo.add(doc)
+    updated = apply_correction(doc, "box4_ss_tax", "1439.00", "paul", SETTINGS)
+    repo.update(updated)
+
+    loaded = repo.get(doc.id)
+    [reason] = loaded.fields["box4_ss_tax"].review_reasons
+    assert "6.2% of box 3" in reason
+    assert loaded.fields["box1_wages"].review_reasons == []
+
+
+def test_rows_from_before_migration_0003_read_as_no_reasons(repo, engine):
+    """Existing databases have NULL in the new column; they must still load."""
+    doc = stored("client-04_w2")
+    repo.add(doc)
+    with engine.begin() as conn:
+        conn.execute(
+            text("UPDATE extracted_fields SET review_reasons = NULL WHERE document_id = :id"),
+            {"id": str(doc.id)},
+        )
+    loaded = repo.get(doc.id)
+    assert all(meta.review_reasons == [] for meta in loaded.fields.values())
+
+
 def test_client_ref_column_and_listing(repo, engine):
     insp = inspect(engine)
     assert "client_ref" in {c["name"] for c in insp.get_columns("documents")}

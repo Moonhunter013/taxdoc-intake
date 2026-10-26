@@ -98,27 +98,34 @@ def review(
     tax_year: int | None = None,
     settings: Settings | None = None,
 ) -> ExtractionResult:
-    """Return a copy of `result` with `needs_review` flags and `review_reasons` filled in."""
+    """Return a copy of `result` with `needs_review` flags and `review_reasons` filled in, both
+    for the document as a whole and per field (so a UI can show each reason next to its box)."""
     s = settings or default_settings
     year = tax_year or s.default_tax_year
 
-    flagged: set[str] = set()
+    by_field: dict[str, list[str]] = {}
     reasons: list[str] = []
+
+    def flag(name: str, reason: str) -> None:
+        by_field.setdefault(name, []).append(reason)
+        reasons.append(reason)
 
     for name, meta in result.fields.items():
         threshold = s.threshold_for(name)
         if meta.confidence < threshold:
-            flagged.add(name)
-            reasons.append(f"{name}: confidence {meta.confidence:.1f}% is below {threshold:.0f}%")
+            flag(name, f"{name}: confidence {meta.confidence:.1f}% is below {threshold:.0f}%")
 
     doc = result.document
     rules = _w2_rules(doc, year, s) if isinstance(doc, W2) else _1099nec_rules(doc, s)
     for name, reason in rules:
-        flagged.add(name)
-        reasons.append(reason)
+        # A rule may name a field Textract never returned (no metadata): the reason still
+        # appears in the document-level list.
+        flag(name, reason)
 
     fields = {
-        name: meta.model_copy(update={"needs_review": name in flagged})
+        name: meta.model_copy(
+            update={"needs_review": name in by_field, "review_reasons": by_field.get(name, [])}
+        )
         for name, meta in result.fields.items()
     }
     return result.model_copy(update={"fields": fields, "review_reasons": reasons})

@@ -150,7 +150,12 @@ def apply_correction(
         settings=settings,
     )
     fields = {
-        name: m.model_copy(update={"needs_review": reviewed.fields[name].needs_review})
+        name: m.model_copy(
+            update={
+                "needs_review": reviewed.fields[name].needs_review,
+                "review_reasons": reviewed.fields[name].review_reasons,
+            }
+        )
         for name, m in fields.items()
     }
     return stored.model_copy(
