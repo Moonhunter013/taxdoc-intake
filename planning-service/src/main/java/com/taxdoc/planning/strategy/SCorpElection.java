@@ -50,9 +50,7 @@ public final class SCorpElection implements Strategy {
                     "No self-employment (1099-NEC) income, so there is no self-employment tax to reduce.", List.of());
         }
 
-        BigDecimal w2SocialSecurityWages = profile.socialSecurityByW2().stream()
-                .map(TaxProfile.W2SocialSecurity::wages)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal w2SocialSecurityWages = profile.w2SocialSecurityWages();
         BigDecimal medicareWages = profile.medicareWages();
 
         BigDecimal asSoleProprietor = PayrollTaxes.selfEmploymentTax(rules, profit, w2SocialSecurityWages)

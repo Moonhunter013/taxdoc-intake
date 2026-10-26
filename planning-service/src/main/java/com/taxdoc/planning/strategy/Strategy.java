@@ -13,7 +13,8 @@ import com.taxdoc.planning.rules.TaxYearRules;
  * comes from {@link TaxYearRules}; judgement calls (e.g. a reasonable salary) come from
  * configuration and are listed in the result's assumptions.
  */
-public sealed interface Strategy permits SCorpElection {
+public sealed interface Strategy
+        permits SCorpElection, SelfEmployedRetirement, WorkplaceRetirement, HsaContribution, ExcessSocialSecurity {
 
     /** Stable identifier, stored with plan results. */
     String code();

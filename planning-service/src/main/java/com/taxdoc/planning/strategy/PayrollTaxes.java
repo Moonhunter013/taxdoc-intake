@@ -86,4 +86,27 @@ final class PayrollTaxes {
                 .multiply(ss.additionalMedicareRate());
         return employerSocialSecurity.add(employeeSocialSecurity).add(medicare).add(additionalMedicare);
     }
+
+    /**
+     * Employee Social Security and Medicare saved when W-2 wages fall by {@code reduction}, e.g. an
+     * HSA contribution through a cafeteria plan, which isn't subject to employment taxes
+     * (IRS Publication 969, https://www.irs.gov/publications/p969). Social Security is only saved on
+     * wages below the wage base (anything above was refunded as excess anyway).
+     *
+     * <p>Pay is measured by box 5 (Medicare wages), not box 3: employers stop box 3 at the wage base,
+     * so a box 3 of 184,500 can hide 212,000 of pay, which a 4,400 contribution leaves above the base.
+     */
+    static BigDecimal employeeTaxSavedOnWageReduction(
+            TaxYearRules rules, FilingStatus status, BigDecimal reduction, BigDecimal medicareWages) {
+        TaxYearRules.SocialSecurity ss = rules.socialSecurity();
+        BigDecimal taxedBefore = medicareWages.min(ss.wageBase());
+        BigDecimal taxedAfter = medicareWages.subtract(reduction).max(BigDecimal.ZERO).min(ss.wageBase());
+        BigDecimal socialSecurity = taxedBefore.subtract(taxedAfter).multiply(ss.employeeRate());
+        BigDecimal medicare = reduction.min(medicareWages).multiply(ss.medicareRate());
+        BigDecimal threshold = ss.additionalMedicareThreshold().get(status);
+        BigDecimal additionalMedicare = medicareWages.subtract(threshold).max(BigDecimal.ZERO)
+                .subtract(medicareWages.subtract(reduction).subtract(threshold).max(BigDecimal.ZERO))
+                .multiply(ss.additionalMedicareRate());
+        return socialSecurity.add(medicare).add(additionalMedicare);
+    }
 }
