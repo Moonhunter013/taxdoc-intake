@@ -1,8 +1,11 @@
 package com.taxdoc.planning.persistence;
 
+import com.taxdoc.planning.strategy.Outcome;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,8 +33,13 @@ public class StrategyResultEntity {
     @Column(name = "strategy_code", nullable = false, length = 64)
     private String strategyCode;
 
-    @Column(nullable = false)
-    private boolean applicable;
+    /** Stored by name, so reordering the enum can't silently change stored outcomes. */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 16)
+    private Outcome outcome;
+
+    @Column(nullable = false, length = 200)
+    private String title;
 
     @Column(name = "estimated_savings", nullable = false, precision = 12, scale = 2)
     private BigDecimal estimatedSavings;
@@ -49,12 +57,14 @@ public class StrategyResultEntity {
 
     public StrategyResultEntity(
             String strategyCode,
-            boolean applicable,
+            Outcome outcome,
+            String title,
             BigDecimal estimatedSavings,
             String explanation,
             List<String> assumptions) {
         this.strategyCode = strategyCode;
-        this.applicable = applicable;
+        this.outcome = outcome;
+        this.title = title;
         // Strategies may compute more decimals; store whole cents, rounding half up.
         this.estimatedSavings = estimatedSavings.setScale(2, RoundingMode.HALF_UP);
         this.explanation = explanation;
@@ -73,8 +83,12 @@ public class StrategyResultEntity {
         return strategyCode;
     }
 
-    public boolean isApplicable() {
-        return applicable;
+    public Outcome getOutcome() {
+        return outcome;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public BigDecimal getEstimatedSavings() {

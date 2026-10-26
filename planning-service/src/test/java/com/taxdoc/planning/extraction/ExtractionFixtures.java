@@ -44,6 +44,15 @@ public final class ExtractionFixtures {
         return documents;
     }
 
+    /** Replaces the first occurrence of text that must occur at least once. */
+    public static String replaceFirst(String json, String target, String replacement) {
+        int first = json.indexOf(target);
+        if (first < 0) {
+            throw new IllegalArgumentException("expected at least one occurrence of " + target);
+        }
+        return json.substring(0, first) + replacement + json.substring(first + target.length());
+    }
+
     /** Replaces text that must occur exactly once, so an edited fixture can't silently stay the same. */
     public static String replaceOnce(String json, String target, String replacement) {
         int first = json.indexOf(target);

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.taxdoc.planning.MySqlIntegrationTest;
+import com.taxdoc.planning.strategy.Outcome;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,11 +33,12 @@ class PlanRepositoryTest extends MySqlIntegrationTest {
     private static Plan samplePlan() {
         Plan plan = new Plan("client-02", 2026, false, LocalDateTime.of(2026, 10, 25, 12, 0));
         plan.addResult(new StrategyResultEntity(
-                "S_CORP_ELECTION", true, new BigDecimal("9180.25"),
+                "S_CORP_ELECTION", Outcome.RECOMMENDED, "Elect S-corporation status", new BigDecimal("9180.25"),
                 "Paying a reasonable salary reduces self-employment tax.",
                 List.of("Reasonable salary of 60% of net profit", "Extra compliance cost of $2,000/yr")));
         plan.addResult(new StrategyResultEntity(
-                "HSA", false, BigDecimal.ZERO, "No W-2 income, so no employer HSA.", List.of()));
+                "HSA", Outcome.NOT_APPLICABLE, "Contribute to an HSA", BigDecimal.ZERO,
+                "No W-2 income, so no employer HSA.", List.of()));
         return plan;
     }
 
@@ -44,9 +46,9 @@ class PlanRepositoryTest extends MySqlIntegrationTest {
     void flywayCreatedTheSchemaAndHibernateValidatedIt() {
         // The context only starts if ddl-auto=validate accepts the Flyway schema.
         Integer applied = jdbc.queryForObject(
-                "SELECT COUNT(*) FROM flyway_schema_history WHERE version = '1' AND success = 1",
+                "SELECT COUNT(*) FROM flyway_schema_history WHERE version IN ('1', '2') AND success = 1",
                 Integer.class);
-        assertThat(applied).isEqualTo(1);
+        assertThat(applied).isEqualTo(2);
     }
 
     @Test
@@ -55,7 +57,7 @@ class PlanRepositoryTest extends MySqlIntegrationTest {
 
         Plan loaded = plans.findWithResultsById(saved.getId()).orElseThrow();
         assertThat(loaded.getClientRef()).isEqualTo("client-02");
-        assertThat(loaded.getTotalEstimatedSavings()).isEqualByComparingTo("9180.25"); // only applicable
+        assertThat(loaded.getTotalEstimatedSavings()).isEqualByComparingTo("9180.25"); // recommended only
         assertThat(loaded.getResults()).hasSize(2);
         StrategyResultEntity first = loaded.getResults().get(0); // ordered by savings, highest first
         assertThat(first.getStrategyCode()).isEqualTo("S_CORP_ELECTION");
