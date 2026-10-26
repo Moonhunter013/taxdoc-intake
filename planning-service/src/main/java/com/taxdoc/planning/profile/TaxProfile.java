@@ -50,6 +50,15 @@ public record TaxProfile(
         warnings = List.copyOf(warnings);
     }
 
+    /** Total W-2 box 3. */
+    public BigDecimal w2SocialSecurityWages() {
+        return socialSecurityByW2.stream().map(W2SocialSecurity::wages).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public boolean hasW2() {
+        return !socialSecurityByW2.isEmpty();
+    }
+
     /**
      * Social Security wages and tax withheld on one W-2. Kept per W-2 rather than summed: the
      * excess Social Security credit applies when several employers together withheld too much,

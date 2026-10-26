@@ -16,3 +16,12 @@ taxdoc:
       annual-compliance-cost: 2500
       # Net saving needed to recommend rather than call it marginal.
       minimum-net-savings: 5000
+
+    # Workplace 401(k), Solo 401(k) and HSA (#23). Chosen by Paul on 2026-10-26.
+    contributions:
+      # How much a client is assumed to save for retirement: 15% of pay, a common guideline
+      # (not law), capped by the legal limits in tax-years.yml. Assuming the legal maximum instead
+      # would tell a part-time employee on $38,000 to defer $24,500.
+      savings-rate: 0.15
+      # Estimated tax saved needed to recommend rather than call it marginal.
+      minimum-savings: 1000

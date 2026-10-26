@@ -38,4 +38,10 @@ final class StrategyAssumptionsYaml {
     static SCorpAssumptions sCorp() {
         return sCorp(properties());
     }
+
+    static ContributionAssumptions contributions() {
+        return new Binder(new MapConfigurationPropertySource(properties()))
+                .bind("taxdoc.strategies.contributions", Bindable.of(ContributionAssumptions.class))
+                .get();
+    }
 }

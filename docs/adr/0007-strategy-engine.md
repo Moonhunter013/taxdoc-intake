@@ -59,7 +59,40 @@ market rate for the role, not profit.
 | 06 (W-2 at wage base + $35k) | Not applicable: S-corp costs more | - |
 | 01, 04, 08, 10 (W-2 only) | Not applicable | - |
 
+### Contribution strategies and excess Social Security (#23)
+Workplace 401(k) headroom, Solo 401(k) (with SEP-IRA as the simpler alternative), HSA, and excess
+Social Security withholding. Assumptions, chosen 2026-10-26: a client saves **15% of pay**, capped by
+the legal limits, and a strategy is recommended from **$1,000** of estimated tax saved.
+
+- **Why a savings target, not the legal maximum:** assuming the maximum told control client-08
+  (part-time, $38,000) to defer $24,500 and recommended it. With the target, both control clients
+  (04, 08) get no recommendations, and the tests assert that.
+- **Tax saved is "tax before minus tax after"** with the brackets in `tax-years.yml`, so a
+  contribution that crosses brackets (client-09: 35% into 32%) is priced correctly.
+- **No double counting:** the elective deferral limit is shared across all plans a person is in, so
+  for clients with W-2 wages the Solo 401(k) counts only its employer part (20% of profit after half
+  SE tax, Publication 560) and leaves deferrals to the workplace strategy. Each plan has its own
+  annual additions limit.
+- **HSA eligibility can't be known** from tax forms (it needs HDHP coverage), so every HSA result
+  says to check it first. Payroll savings use box 5, because box 3 stops at the wage base.
+- **Excess Social Security is not a judgement call:** any excess across employers is recommended,
+  since the money is owed to the client. Excess withheld by a single employer is for that employer
+  to fix and isn't claimed.
+
+| Client | Recommended |
+|---|---|
+| 01 | Workplace 401(k) $3,720, HSA $1,159 |
+| 02 | S-corp $6,657, Solo 401(k) $6,660 |
+| 03 | Solo 401(k) $1,386, HSA $1,305, Workplace 401(k) $1,210 |
+| 05 / 07 / 09 | Solo 401(k) $4,290 / $3,135 / $15,543 (plus S-corp for 09) |
+| 06 | Solo 401(k) $1,680 |
+| 10 | Workplace 401(k) $2,520, excess Social Security $620 |
+| 04, 08 (controls) | none (all marginal) |
+
 ## Consequences
+- **Strategy results aren't combined.** An S-corp election would base Solo 401(k) contributions on
+  the salary, and plan totals add estimates that assume different setups. Each result names its
+  assumption (sole proprietorship); a combined "scenario" view would be a later design.
 - **Known limitation: income tax is not modelled**, notably the QBI deduction, which an S-corp
   salary reduces and which can shrink the saving for high earners (client-09). Every S-corp result
   lists this. Modelling it needs QBI thresholds and SSTB rules in `tax-years.yml` (a later issue).
