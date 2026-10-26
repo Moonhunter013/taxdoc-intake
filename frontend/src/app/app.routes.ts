@@ -1,3 +1,15 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { HomePage } from './home/home-page';
+import { NotFoundPage } from './not-found/not-found-page';
+import { UploadPage } from './upload/upload-page';
+
+export const routes: Routes = [
+  { path: '', component: HomePage, title: 'TaxDoc Intake' },
+  {
+    path: 'clients/:clientRef/upload',
+    component: UploadPage,
+    title: 'Upload documents · TaxDoc Intake',
+  },
+  { path: '**', component: NotFoundPage, title: 'Page not found · TaxDoc Intake' },
+];
