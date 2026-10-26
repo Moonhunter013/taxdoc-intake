@@ -19,6 +19,24 @@ export const W2_DONE: ExtractedDocument = {
     box1_wages: '52250.00',
     employee_ssn: '***-**-8810',
   },
+  fields: {
+    employer_name: {
+      confidence: 97.1,
+      source_label: 'Employer name',
+      needs_review: false,
+      review_reasons: [],
+      corrected_by: null,
+      corrected_at: null,
+    },
+    box1_wages: {
+      confidence: 96.4,
+      source_label: '1 Wages, tips',
+      needs_review: false,
+      review_reasons: [],
+      corrected_by: null,
+      corrected_at: null,
+    },
+  },
   review_reasons: [],
   warnings: [],
 };
@@ -31,6 +49,32 @@ export const NEC_NEEDS_REVIEW: ExtractedDocument = {
   client_ref: 'client-03',
   needs_review: true,
   document: { payer_name: 'Pixelforge Studio LLC', box1a_nonemployee_comp: '42000.00' },
+  fields: {
+    payer_name: {
+      confidence: 95.0,
+      source_label: "PAYER'S name",
+      needs_review: false,
+      review_reasons: [],
+      corrected_by: null,
+      corrected_at: null,
+    },
+    box1a_nonemployee_comp: {
+      confidence: 98.2,
+      source_label: '1a Nonemployee compensation',
+      needs_review: false,
+      review_reasons: [],
+      corrected_by: null,
+      corrected_at: null,
+    },
+    box6_state: {
+      confidence: 64.2,
+      source_label: '6 State',
+      needs_review: true,
+      review_reasons: ['box6_state: confidence 64.2% is below the 70% threshold'],
+      corrected_by: null,
+      corrected_at: null,
+    },
+  },
   review_reasons: ['box6_state: confidence 64.2% is below the 70% threshold'],
   warnings: [],
 };

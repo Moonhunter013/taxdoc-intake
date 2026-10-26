@@ -1,0 +1,210 @@
+<a
+  class="rounded text-sm text-blue-700 underline"
+  [routerLink]="['/clients', clientRef(), 'upload']"
+>
+  ← Back to client {{ clientRef() }}
+</a>
+
+@if (loadError(); as message) {
+  <p class="mt-6 text-red-800" role="alert">{{ message }}</p>
+}
+
+@if (doc(); as d) {
+  <div class="mt-4 flex flex-wrap items-center gap-3">
+    <h2 class="text-xl font-semibold text-slate-900">Review {{ d.form_type }}</h2>
+    @if (d.needs_review) {
+      <span class="rounded bg-amber-100 px-2 py-0.5 text-sm font-medium text-amber-900"
+        >Needs review</span
+      >
+    } @else {
+      <span class="rounded bg-green-100 px-2 py-0.5 text-sm font-medium text-green-900">Ready</span>
+    }
+  </div>
+  <p class="mt-1 text-sm text-slate-600">Tax year {{ d.tax_year }} · client {{ clientRef() }}</p>
+
+  <!-- Who is correcting: recorded with each change (no login yet). -->
+  <div class="mt-6 flex flex-col">
+    <label for="corrected-by" class="text-sm font-medium text-slate-900">Your name</label>
+    <input
+      id="corrected-by"
+      class="mt-1 w-64 rounded border px-3 py-2"
+      [class.border-red-600]="nameMissing()"
+      [class.border-slate-300]="!nameMissing()"
+      autocomplete="name"
+      aria-describedby="corrected-by-hint"
+      [attr.aria-invalid]="nameMissing() ? 'true' : null"
+      [value]="correctedBy()"
+      (input)="setCorrectedBy($any($event.target).value)"
+    />
+    <span id="corrected-by-hint" class="mt-1 text-xs text-slate-600"
+      >Recorded with each correction.</span
+    >
+  </div>
+
+  <!-- Every reason in one place; each also appears next to its field below. -->
+  <div aria-live="polite">
+    @if (d.review_reasons.length > 0) {
+      <div class="mt-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
+        <h3 class="font-semibold text-amber-900">To check</h3>
+        <ul class="mt-1 list-disc pl-5 text-sm text-amber-900">
+          @for (reason of d.review_reasons; track $index) {
+            <li>{{ reason }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+
+  @for (group of groups(); track group.title) {
+    <section class="mt-8" [attr.aria-labelledby]="'group-' + $index">
+      <h3 [id]="'group-' + $index" class="text-base font-semibold text-slate-900">
+        {{ group.title }}
+      </h3>
+      <ul class="mt-2 divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
+        @for (spec of group.fields; track spec.name) {
+          @let m = meta(spec.name);
+          <li
+            class="px-4 py-3"
+            [attr.data-field]="spec.name"
+            [class.bg-amber-50]="m?.needs_review"
+            [class.border-l-4]="m?.needs_review"
+            [class.border-amber-500]="m?.needs_review"
+          >
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div class="min-w-0">
+                <div class="text-sm text-slate-600">{{ spec.label }}</div>
+                @if (editing() !== spec.name) {
+                  <div class="font-medium text-slate-900" [class.font-mono]="spec.kind === 'tin'">
+                    {{ display(spec) }}
+                  </div>
+                }
+              </div>
+              @if (editing() !== spec.name) {
+                <button
+                  type="button"
+                  class="rounded border border-slate-300 px-3 py-1 text-sm hover:bg-slate-100"
+                  [attr.aria-label]="'Edit ' + spec.label"
+                  (click)="startEdit(spec)"
+                >
+                  Edit
+                </button>
+              }
+            </div>
+
+            @if (editing() === spec.name) {
+              <form class="mt-2" (submit)="save(spec, $event)" (keydown.escape)="cancelEdit()">
+                @switch (spec.kind) {
+                  @case ('bool') {
+                    <label class="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        [checked]="draftBool()"
+                        (change)="draftBool.set($any($event.target).checked)"
+                      />
+                      Retirement plan box is checked
+                    </label>
+                  }
+                  @case ('box12') {
+                    <div class="flex flex-col gap-2">
+                      @for (row of draftRows(); track $index; let i = $index) {
+                        <div class="flex items-center gap-2">
+                          <input
+                            class="w-16 rounded border border-slate-300 px-2 py-1 font-mono uppercase"
+                            [attr.aria-label]="'Box 12 code, row ' + (i + 1)"
+                            [value]="row.code"
+                            (input)="setRow(i, 'code', $any($event.target).value)"
+                          />
+                          <input
+                            class="w-32 rounded border border-slate-300 px-2 py-1"
+                            inputmode="decimal"
+                            [attr.aria-label]="'Box 12 amount, row ' + (i + 1)"
+                            [value]="row.amount"
+                            (input)="setRow(i, 'amount', $any($event.target).value)"
+                          />
+                          <button
+                            type="button"
+                            class="text-sm text-red-800 underline"
+                            (click)="removeRow(i)"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      }
+                      <button
+                        type="button"
+                        class="self-start text-sm text-blue-700 underline"
+                        (click)="addRow()"
+                      >
+                        Add a code
+                      </button>
+                    </div>
+                  }
+                  @default {
+                    <label [for]="'edit-' + spec.name" class="sr-only">{{ spec.label }}</label>
+                    <input
+                      [id]="'edit-' + spec.name"
+                      class="w-full max-w-md rounded border border-slate-300 px-3 py-2"
+                      [class.font-mono]="spec.kind === 'tin'"
+                      [attr.inputmode]="spec.kind === 'money' ? 'decimal' : null"
+                      [attr.placeholder]="
+                        spec.kind === 'tin' ? 'Type the full number, e.g. 000-00-0000' : null
+                      "
+                      autocomplete="off"
+                      spellcheck="false"
+                      [attr.aria-invalid]="fieldError() ? 'true' : null"
+                      [attr.aria-describedby]="fieldError() ? 'error-' + spec.name : null"
+                      [value]="draft()"
+                      (input)="draft.set($any($event.target).value)"
+                    />
+                    @if (spec.kind === 'tin') {
+                      <p class="mt-1 text-xs text-slate-600">
+                        Only the last 4 digits are kept and shown.
+                      </p>
+                    }
+                  }
+                }
+                <div class="mt-2 flex gap-2">
+                  <button
+                    type="submit"
+                    class="rounded bg-blue-700 px-3 py-1 text-sm font-medium text-white hover:bg-blue-800 disabled:opacity-50"
+                    [disabled]="saving()"
+                  >
+                    {{ saving() ? 'Saving…' : 'Save' }}
+                  </button>
+                  <button
+                    type="button"
+                    class="rounded px-3 py-1 text-sm underline"
+                    (click)="cancelEdit()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                @if (fieldError(); as err) {
+                  <p [id]="'error-' + spec.name" class="mt-2 text-sm text-red-800" role="alert">
+                    {{ err }}
+                  </p>
+                }
+              </form>
+            }
+
+            @if (m) {
+              <div class="mt-1 text-xs text-slate-600">
+                {{ confidenceText(m) }}
+                @if (correctedText(m); as corrected) {
+                  · {{ corrected }}
+                }
+              </div>
+              @if (m.review_reasons.length > 0) {
+                <ul class="mt-1 list-disc pl-5 text-sm text-amber-900">
+                  @for (reason of m.review_reasons; track $index) {
+                    <li>{{ reason }}</li>
+                  }
+                </ul>
+              }
+            }
+          </li>
+        }
+      </ul>
+    </section>
+  }
+}

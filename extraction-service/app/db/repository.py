@@ -74,6 +74,7 @@ def _fill_field_row(row: FieldRow, name: str, doc: StoredDocument) -> None:
     row.confidence = meta.confidence if meta else None
     row.source_label = meta.source_label if meta else None
     row.needs_review = meta.needs_review if meta else False
+    row.review_reasons = list(meta.review_reasons) if meta else []
     row.corrected_by = meta.corrected_by if meta else None
     row.corrected_at = _naive_utc(meta.corrected_at) if meta else None
 
@@ -114,6 +115,7 @@ def _to_stored(row: DocumentRow) -> StoredDocument:
                 confidence=f.confidence,
                 source_label=f.source_label,
                 needs_review=f.needs_review,
+                review_reasons=f.review_reasons or [],  # NULL before migration 0003
                 corrected_by=f.corrected_by,
                 corrected_at=_aware_utc(f.corrected_at),
             )

@@ -65,5 +65,10 @@ class FieldMeta(BaseModel):
     confidence: float = Field(ge=0, le=100, description="Textract confidence, 0-100")
     source_label: str | None = Field(default=None, description="Form label the value came from")
     needs_review: bool = False
+    review_reasons: list[str] = Field(
+        default_factory=list,
+        description="Why this field needs review; empty when it doesn't. The same sentences also "
+        "appear in the document's review_reasons, which lists every reason in one place.",
+    )
     corrected_by: str | None = Field(default=None, description="Who manually corrected it")
     corrected_at: datetime | None = None
