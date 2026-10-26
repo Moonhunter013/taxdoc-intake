@@ -22,6 +22,7 @@ class TaxYearConfigTest {
         assertThat(y2026.socialSecurity().additionalMedicareThreshold().get(FilingStatus.MARRIED_FILING_JOINTLY))
                 .isEqualByComparingTo("250000");
         assertThat(y2026.selfEmployment().netEarningsFactor()).isEqualByComparingTo("0.9235");
+        assertThat(y2026.selfEmployment().minimumNetEarnings()).isEqualByComparingTo("400");
         assertThat(y2026.retirement().electiveDeferralLimit()).isEqualByComparingTo("24500");
         assertThat(y2026.retirement().annualAdditionsLimit()).isEqualByComparingTo("72000");
         assertThat(y2026.hsa().familyLimit()).isEqualByComparingTo("8750");

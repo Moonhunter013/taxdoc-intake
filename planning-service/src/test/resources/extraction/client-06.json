@@ -1,0 +1,216 @@
+{
+  "client_ref": "client-06",
+  "documents": [
+    {
+      "document_id": "0bd7cb74-076f-4188-960b-c0feecb6adad",
+      "form_type": "W-2",
+      "tax_year": 2026,
+      "client_ref": "client-06",
+      "needs_review": false,
+      "document": {
+        "employer_name": "Lonestar Semiconductor Inc",
+        "employer_ein": "**-***4418",
+        "employer_address": "11000 Research Blvd, Austin, TX 78759",
+        "employee_name": "Helena Vasquez-Moore",
+        "employee_ssn": "***-**-4418",
+        "box1_wages": "212200.00",
+        "box2_federal_withholding": "50928.00",
+        "box3_ss_wages": "184500.00",
+        "box4_ss_tax": "11439.00",
+        "box5_medicare_wages": "235700.00",
+        "box6_medicare_tax": "3738.95",
+        "box12": [
+          {
+            "code": "D",
+            "amount": "23500.00"
+          },
+          {
+            "code": "W",
+            "amount": "4300.00"
+          }
+        ],
+        "box13_retirement_plan": true,
+        "box15_state": null,
+        "box15_state_id": null,
+        "box16_state_wages": "0.00",
+        "box17_state_tax": "0.00"
+      },
+      "fields": {
+        "employer_name": {
+          "confidence": 95.37578582763672,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_address": {
+          "confidence": 95.37578582763672,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_ein": {
+          "confidence": 94.7838134765625,
+          "source_label": "b Employer identification number (EIN)",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_ssn": {
+          "confidence": 93.47413635253906,
+          "source_label": "a Employee's social security number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_name": {
+          "confidence": 92.0602798461914,
+          "source_label": "e Employee's first name and initial Last name Suff.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1_wages": {
+          "confidence": 94.66448211669922,
+          "source_label": "1 Wages, tips, other compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box2_federal_withholding": {
+          "confidence": 94.5025634765625,
+          "source_label": "2 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box3_ss_wages": {
+          "confidence": 95.18035125732422,
+          "source_label": "3 Social security wages",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_ss_tax": {
+          "confidence": 95.08503723144531,
+          "source_label": "4 Social security tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box5_medicare_wages": {
+          "confidence": 95.3473892211914,
+          "source_label": "5 Medicare wages and tips",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_medicare_tax": {
+          "confidence": 95.32186889648438,
+          "source_label": "6 Medicare tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box13_retirement_plan": {
+          "confidence": 94.47198486328125,
+          "source_label": "Retirement plan",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box12": {
+          "confidence": 99.77220153808594,
+          "source_label": null,
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": [
+        "box 15: ignored '15', not a state code"
+      ]
+    },
+    {
+      "document_id": "aed936df-0c54-4b14-afcc-6ada0273779a",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-06",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Barton Creek Advisory LLC",
+        "payer_tin": "**-***4419",
+        "payer_address": "401 Congress Ave, Austin, TX 78701",
+        "recipient_name": "Helena Vasquez-Moore",
+        "recipient_tin": "***-**-4418",
+        "box1a_nonemployee_comp": "35000.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": null,
+        "box6_state_id": null,
+        "box7_state_income": "0.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.87583923339844,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.20052337646484,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.33937072753906,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 94.9549789428711,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.2444839477539,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.32630157470703,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.30721282958984,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "0bd7cb74-076f-4188-960b-c0feecb6adad",
+      "aed936df-0c54-4b14-afcc-6ada0273779a"
+    ]
+  ],
+  "warnings": []
+}

@@ -16,7 +16,7 @@ import org.springframework.core.io.ClassPathResource;
  * Binds the real {@code tax-years.yml} the same way Spring Boot does at startup, without
  * starting the application (so these tests need no database).
  */
-final class TaxYearsYaml {
+public final class TaxYearsYaml {
 
     static final String PREFIX = "taxdoc.tax-rules";
     static final String Y2026 = PREFIX + ".years.2026.";
@@ -74,7 +74,7 @@ final class TaxYearsYaml {
                 .get();
     }
 
-    static TaxRules load() {
+    public static TaxRules load() {
         return new TaxRules(bind(properties()));
     }
 }

@@ -1,0 +1,18 @@
+# Judgement calls behind strategy estimates (issue #22, ADR-0007).
+#
+# These are NOT tax law, which is why they live apart from tax-years.yml. Each one is listed in
+# every result that uses it, so a reader can see exactly what the estimate assumed. Change them
+# here; nothing in the code hard-codes them.
+taxdoc:
+  strategies:
+    s-corp:
+      # The IRS requires "reasonable compensation" for an S-corp owner's services but gives no
+      # formula (https://www.irs.gov/businesses/small-businesses-self-employed/s-corporation-compensation-and-medical-insurance-issues).
+      # 60% of profit, capped: the cap reflects that salary tracks the market rate for the role,
+      # not the profit, for high earners. Chosen by Paul on 2026-10-25 (model B in the #22 plan).
+      salary-ratio: 0.60
+      salary-cap: 120000
+      # Payroll service plus a separate Form 1120-S return; an assumption, varies widely.
+      annual-compliance-cost: 2500
+      # Net saving needed to recommend rather than call it marginal.
+      minimum-net-savings: 5000

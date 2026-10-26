@@ -1,0 +1,104 @@
+{
+  "client_ref": "client-07",
+  "documents": [
+    {
+      "document_id": "5404992e-fcc7-42f1-a459-5a10b019cee7",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-07",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Northwoods Software Co",
+        "payer_tin": "**-***3092",
+        "payer_address": "1 E Main St, Madison, WI 53703",
+        "recipient_name": "Kenji Matsuda-Hart",
+        "recipient_tin": "***-**-3092",
+        "box1a_nonemployee_comp": "95000.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": "WI",
+        "box6_state_id": "00071309",
+        "box7_state_income": "95000.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.36504364013672,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.21756744384766,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.42346954345703,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 95.01109313964844,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.20641326904297,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.36886596679688,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.31523132324219,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state": {
+          "confidence": 76.14508819580078,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state_id": {
+          "confidence": 76.14508819580078,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box7_state_income": {
+          "confidence": 93.46195983886719,
+          "source_label": "7 State income",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "5404992e-fcc7-42f1-a459-5a10b019cee7"
+    ]
+  ],
+  "warnings": []
+}

@@ -1,0 +1,198 @@
+{
+  "client_ref": "client-05",
+  "documents": [
+    {
+      "document_id": "ff3ad44a-2a97-45b3-bbc2-a4d34ea98565",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-05",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Fernwood Publishing LLC",
+        "payer_tin": "**-***9044",
+        "payer_address": "730 SE Hawthorne Blvd, Portland, OR 97214",
+        "recipient_name": "Tobias Wren",
+        "recipient_tin": "***-**-9043",
+        "box1a_nonemployee_comp": "49000.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": "OR",
+        "box6_state_id": "00052905",
+        "box7_state_income": "49000.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.54972839355469,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.18843841552734,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.42206573486328,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 95.04265594482422,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.09146881103516,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.35322570800781,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.32324981689453,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state": {
+          "confidence": 76.11030578613281,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state_id": {
+          "confidence": 76.11030578613281,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box7_state_income": {
+          "confidence": 96.1533432006836,
+          "source_label": "line under box 7 label",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    },
+    {
+      "document_id": "c7779a22-ae02-403e-941c-d7424a4fad5d",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-05",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Cascadia Outdoor Brands Inc",
+        "payer_tin": "**-***9043",
+        "payer_address": "2200 NW Front Ave, Portland, OR 97209",
+        "recipient_name": "Tobias Wren",
+        "recipient_tin": "***-**-9043",
+        "box1a_nonemployee_comp": "81000.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": "OR",
+        "box6_state_id": "00052904",
+        "box7_state_income": "81000.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.33243560791016,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.19412994384766,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.41842651367188,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 95.08513641357422,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.09555053710938,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.34741973876953,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.32723236083984,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state": {
+          "confidence": 76.10270690917969,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state_id": {
+          "confidence": 76.10270690917969,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box7_state_income": {
+          "confidence": 93.47895050048828,
+          "source_label": "7 State income",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "ff3ad44a-2a97-45b3-bbc2-a4d34ea98565",
+      "c7779a22-ae02-403e-941c-d7424a4fad5d"
+    ]
+  ],
+  "warnings": []
+}

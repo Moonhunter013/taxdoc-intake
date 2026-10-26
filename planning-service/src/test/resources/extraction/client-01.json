@@ -1,0 +1,165 @@
+{
+  "client_ref": "client-01",
+  "documents": [
+    {
+      "document_id": "b94a5d34-fa0b-4018-a389-9179e0b488c3",
+      "form_type": "W-2",
+      "tax_year": 2026,
+      "client_ref": "client-01",
+      "needs_review": false,
+      "document": {
+        "employer_name": "Halcyon Robotics Inc",
+        "employer_ein": "**-***2201",
+        "employer_address": "1200 Pearl Pkwy, Boulder, CO 80301",
+        "employee_name": "Avery Lindqvist",
+        "employee_ssn": "***-**-2201",
+        "box1_wages": "203000.00",
+        "box2_federal_withholding": "42630.00",
+        "box3_ss_wages": "184500.00",
+        "box4_ss_tax": "11439.00",
+        "box5_medicare_wages": "212000.00",
+        "box6_medicare_tax": "3182.00",
+        "box12": [
+          {
+            "code": "D",
+            "amount": "9000.00"
+          }
+        ],
+        "box13_retirement_plan": true,
+        "box15_state": "CO",
+        "box15_state_id": "00012201",
+        "box16_state_wages": "203000.00",
+        "box17_state_tax": "8932.00"
+      },
+      "fields": {
+        "employer_name": {
+          "confidence": 95.32759857177734,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_address": {
+          "confidence": 95.32759857177734,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_ein": {
+          "confidence": 94.74668884277344,
+          "source_label": "b Employer identification number (EIN)",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_ssn": {
+          "confidence": 93.46708679199219,
+          "source_label": "a Employee's social security number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_name": {
+          "confidence": 92.97183227539062,
+          "source_label": "e Employee's first name and initial Last name Suff.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1_wages": {
+          "confidence": 94.7359619140625,
+          "source_label": "1 Wages, tips, other compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box2_federal_withholding": {
+          "confidence": 94.46589660644531,
+          "source_label": "2 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box3_ss_wages": {
+          "confidence": 95.22848510742188,
+          "source_label": "3 Social security wages",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_ss_tax": {
+          "confidence": 95.05714416503906,
+          "source_label": "4 Social security tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box5_medicare_wages": {
+          "confidence": 95.40850830078125,
+          "source_label": "5 Medicare wages and tips",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_medicare_tax": {
+          "confidence": 95.30127716064453,
+          "source_label": "6 Medicare tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box16_state_wages": {
+          "confidence": 80.0,
+          "source_label": "16 State wages, tips, etc.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box17_state_tax": {
+          "confidence": 79.68658447265625,
+          "source_label": "17 State income tax",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box13_retirement_plan": {
+          "confidence": 94.5121078491211,
+          "source_label": "Retirement plan",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state": {
+          "confidence": 73.16645812988281,
+          "source_label": "State",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state_id": {
+          "confidence": 75.87356567382812,
+          "source_label": "Employer's state ID number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box12": {
+          "confidence": 99.93083953857422,
+          "source_label": null,
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "b94a5d34-fa0b-4018-a389-9179e0b488c3"
+    ]
+  ],
+  "warnings": []
+}

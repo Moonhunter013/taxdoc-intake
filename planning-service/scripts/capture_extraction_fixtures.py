@@ -21,10 +21,18 @@ from app.main import app
 from tests.fixtures import load_fixture
 from tests.test_documents_api import TEST_SETTINGS, FakeS3, FakeTextract, pdf_bytes
 
-CLIENTS = {
-    "client-03": ["client-03_w2", "client-03_1099nec"],
-    "client-10": ["client-10_w2_1", "client-10_w2_2"],
-}
+FIXTURES = Path(__file__).resolve().parents[2] / "samples" / "textract-fixtures"
+
+
+def all_clients() -> dict[str, list[str]]:
+    """Every sample client, with its captured Textract fixtures in upload order."""
+    clients: dict[str, list[str]] = {}
+    for path in sorted(FIXTURES.glob("client-*.json")):
+        clients.setdefault(path.stem.split("_")[0], []).append(path.stem)
+    return clients
+
+
+CLIENTS = all_clients()
 OUT = Path(__file__).resolve().parents[1] / "src" / "test" / "resources" / "extraction"
 
 

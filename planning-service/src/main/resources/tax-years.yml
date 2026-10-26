@@ -27,6 +27,9 @@ taxdoc:
         # SE tax rate is both shares together (12.4% + 2.9%), applied to 92.35% of net earnings.
         self-employment:
           net-earnings-factor: 0.9235
+          # No SE tax when net earnings (profit x 0.9235) are under $400. Statutory (IRC 1402(b)),
+          # not indexed. Schedule SE line 4c: https://www.irs.gov/pub/irs-pdf/f1040sse.pdf
+          minimum-net-earnings: 400
 
         # IRS Notice 2025-67: https://www.irs.gov/pub/irs-drop/n-25-67.pdf
         # Cross-checked: https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions

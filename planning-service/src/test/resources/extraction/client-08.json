@@ -1,0 +1,153 @@
+{
+  "client_ref": "client-08",
+  "documents": [
+    {
+      "document_id": "754077cf-d6d5-4826-81d0-235e916f778b",
+      "form_type": "W-2",
+      "tax_year": 2026,
+      "client_ref": "client-08",
+      "needs_review": false,
+      "document": {
+        "employer_name": "Forsyth Park Bakery LLC",
+        "employer_ein": "**-***6624",
+        "employer_address": "18 Bull St, Savannah, GA 31401",
+        "employee_name": "Rosa Delacroix",
+        "employee_ssn": "***-**-6624",
+        "box1_wages": "38000.00",
+        "box2_federal_withholding": "2660.00",
+        "box3_ss_wages": "38000.00",
+        "box4_ss_tax": "2356.00",
+        "box5_medicare_wages": "38000.00",
+        "box6_medicare_tax": "551.00",
+        "box12": [],
+        "box13_retirement_plan": false,
+        "box15_state": "GA",
+        "box15_state_id": "00080662",
+        "box16_state_wages": "38000.00",
+        "box17_state_tax": "1330.00"
+      },
+      "fields": {
+        "employer_name": {
+          "confidence": 95.37705993652344,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_address": {
+          "confidence": 95.37705993652344,
+          "source_label": "c Employer's name, address, and ZIP code",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employer_ein": {
+          "confidence": 94.77033233642578,
+          "source_label": "b Employer identification number (EIN)",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_ssn": {
+          "confidence": 93.44694519042969,
+          "source_label": "a Employee's social security number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "employee_name": {
+          "confidence": 86.1202392578125,
+          "source_label": "e Employee's first name and initial Last name Suff.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1_wages": {
+          "confidence": 94.64698791503906,
+          "source_label": "1 Wages, tips, other compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box2_federal_withholding": {
+          "confidence": 94.51531982421875,
+          "source_label": "2 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box3_ss_wages": {
+          "confidence": 95.17098999023438,
+          "source_label": "3 Social security wages",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_ss_tax": {
+          "confidence": 95.02716064453125,
+          "source_label": "4 Social security tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box5_medicare_wages": {
+          "confidence": 95.43225860595703,
+          "source_label": "5 Medicare wages and tips",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_medicare_tax": {
+          "confidence": 95.27338409423828,
+          "source_label": "6 Medicare tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box16_state_wages": {
+          "confidence": 79.84049987792969,
+          "source_label": "16 State wages, tips, etc.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box17_state_tax": {
+          "confidence": 79.56712341308594,
+          "source_label": "17 State income tax",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box13_retirement_plan": {
+          "confidence": 94.27315521240234,
+          "source_label": "Retirement plan",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state": {
+          "confidence": 73.16580963134766,
+          "source_label": "State",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box15_state_id": {
+          "confidence": 75.88079833984375,
+          "source_label": "Employer's state ID number",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "754077cf-d6d5-4826-81d0-235e916f778b"
+    ]
+  ],
+  "warnings": []
+}

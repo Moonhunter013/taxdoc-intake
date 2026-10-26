@@ -80,10 +80,11 @@ public record TaxYearRules(
         }
     }
 
-    public record SelfEmployment(BigDecimal netEarningsFactor) {
+    public record SelfEmployment(BigDecimal netEarningsFactor, BigDecimal minimumNetEarnings) {
 
         public SelfEmployment {
             Checks.rate("self-employment.net-earnings-factor", netEarningsFactor);
+            Checks.positive("self-employment.minimum-net-earnings", minimumNetEarnings);
         }
     }
 

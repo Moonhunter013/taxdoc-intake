@@ -1,0 +1,104 @@
+{
+  "client_ref": "client-09",
+  "documents": [
+    {
+      "document_id": "f4ae3103-d08b-4111-a777-b80dbb83b73c",
+      "form_type": "1099-NEC",
+      "tax_year": 2026,
+      "client_ref": "client-09",
+      "needs_review": false,
+      "document": {
+        "payer_name": "Sonoran Medical Partners PLLC",
+        "payer_tin": "**-***1357",
+        "payer_address": "4500 N 32nd St, Phoenix, AZ 85018",
+        "recipient_name": "Gideon Achterberg",
+        "recipient_tin": "***-**-1357",
+        "box1a_nonemployee_comp": "310000.00",
+        "box4_federal_withholding": "0.00",
+        "box6_state": "AZ",
+        "box6_state_id": "00088135",
+        "box7_state_income": "310000.00"
+      },
+      "fields": {
+        "payer_name": {
+          "confidence": 94.24877166748047,
+          "source_label": "PAYER'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_tin": {
+          "confidence": 95.1935806274414,
+          "source_label": "PAYER'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_tin": {
+          "confidence": 95.39313507080078,
+          "source_label": "RECIPIENT'S TIN",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "recipient_name": {
+          "confidence": 94.99105834960938,
+          "source_label": "RECIPIENT'S name",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "payer_address": {
+          "confidence": 95.20523071289062,
+          "source_label": "payer address block",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box1a_nonemployee_comp": {
+          "confidence": 95.327392578125,
+          "source_label": "1a Nonemployee compensation",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box4_federal_withholding": {
+          "confidence": 95.31008911132812,
+          "source_label": "4 Federal income tax withheld",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state": {
+          "confidence": 76.14025115966797,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box6_state_id": {
+          "confidence": 76.14025115966797,
+          "source_label": "6 State/Payer's state no.",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        },
+        "box7_state_income": {
+          "confidence": 93.3917465209961,
+          "source_label": "7 State income",
+          "needs_review": false,
+          "corrected_by": null,
+          "corrected_at": null
+        }
+      },
+      "review_reasons": [],
+      "warnings": []
+    }
+  ],
+  "taxpayer_groups": [
+    [
+      "f4ae3103-d08b-4111-a777-b80dbb83b73c"
+    ]
+  ],
+  "warnings": []
+}
