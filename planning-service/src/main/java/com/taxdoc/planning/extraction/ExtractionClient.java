@@ -28,8 +28,10 @@ public class ExtractionClient {
 
     private static final Logger log = LoggerFactory.getLogger(ExtractionClient.class);
 
-    /** Same rule extraction applies (ADR-0006): safe in URLs and logs. */
-    private static final Pattern CLIENT_REF = Pattern.compile("^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$");
+    /** Same rule extraction applies (ADR-0006): safe in URLs and logs. Also used to validate API requests. */
+    public static final String CLIENT_REF_PATTERN = "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$";
+
+    private static final Pattern CLIENT_REF = Pattern.compile(CLIENT_REF_PATTERN);
 
     private final RestClient restClient;
 
