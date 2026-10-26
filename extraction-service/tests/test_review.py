@@ -114,6 +114,17 @@ def test_unknown_box12_code_is_flagged_not_rejected():
     assert any("'ZZ'" in r for r in review(bad).review_reasons)
 
 
+@pytest.mark.parametrize("code", ["TA", "TP", "TT"])
+def test_box12_codes_new_for_2026_are_not_flagged(code):
+    # TA, TP and TT were added in the 2026 W-2/W-3 instructions; they must not be
+    # reported as unknown codes.
+    result = extracted("client-04_w2")
+    with_code = with_document_changes(
+        result, box12=[Box12Entry(code=code, amount=Decimal("500.00"))]
+    )
+    assert review(with_code).review_reasons == []
+
+
 def test_unconfigured_tax_year_is_flagged():
     reasons = review(extracted("client-01_w2"), tax_year=2031).review_reasons
     assert "no Social Security wage base configured for 2031" in reasons

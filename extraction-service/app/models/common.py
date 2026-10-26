@@ -28,12 +28,15 @@ StateCode = Annotated[str, StringConstraints(pattern=r"^[A-Z]{2}$")]
 # stored in full (see docs/adr/0005-sensitive-data-handling.md).
 TIN_FIELDS = ("employee_ssn", "employer_ein", "payer_tin", "recipient_tin")
 
-# Well-established W-2 box 12 codes (IRS General Instructions for Forms W-2 and W-3).
+# W-2 box 12 codes listed in the 2026 General Instructions for Forms W-2 and W-3
+# (https://www.irs.gov/instructions/iw2w3, checked 2026-10-25). TA (employer contributions
+# to Trump accounts, section 128), TP (cash tips reported to the employer) and TT (qualified
+# overtime compensation) are new for 2026.
 # The IRS adds codes occasionally, so the model only checks the *format* of a code;
 # the review layer flags codes not in this set instead of rejecting the document.
-# TODO: confirm against the 2026 instructions for any newly added codes.
+# Re-check this list against each new tax year's instructions.
 KNOWN_BOX12_CODES = frozenset(
-    "A B C D E F G H J K L M N P Q R S T V W Y Z AA BB DD EE FF GG HH II".split()
+    "A B C D E F G H J K L M N P Q R S T V W Y Z AA BB DD EE FF GG HH II TA TP TT".split()
 )
 
 
