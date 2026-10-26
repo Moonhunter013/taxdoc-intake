@@ -1,0 +1,124 @@
+<h2 class="text-xl font-semibold text-slate-900">Upload documents</h2>
+<p class="mt-1 text-sm text-slate-600">
+  Client <span class="font-mono font-medium text-slate-900">{{ clientRef() }}</span>
+</p>
+
+<!-- The real file input stays in the tab order (visually hidden); the label is the drop zone and
+     shows the input's focus ring, so it works by keyboard, mouse and drag and drop. -->
+<input
+  id="file-input"
+  type="file"
+  multiple
+  accept="application/pdf,.pdf"
+  class="peer sr-only"
+  aria-describedby="file-hint"
+  (change)="onFilesSelected($event)"
+/>
+<label
+  for="file-input"
+  class="mt-6 flex cursor-pointer flex-col items-center rounded-lg border-2 border-dashed px-6 py-10 text-center peer-focus-visible:ring-2 peer-focus-visible:ring-blue-600 peer-focus-visible:ring-offset-2"
+  [class.border-blue-500]="dragging()"
+  [class.bg-blue-50]="dragging()"
+  [class.border-slate-300]="!dragging()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="dragging.set(false)"
+  (drop)="onDrop($event)"
+>
+  <span class="text-base font-medium text-slate-900">
+    Drag PDFs here, or <span class="text-blue-700 underline">choose files</span>
+  </span>
+  <span id="file-hint" class="mt-1 text-sm text-slate-600">
+    Single-page W-2 or 1099-NEC forms, PDF, up to 5 MB each
+  </span>
+</label>
+
+<!-- Always rendered, so screen readers announce warnings that appear after an upload. -->
+<div id="client-warnings" aria-live="polite">
+  @if (clientWarnings().length > 0) {
+    <div class="mt-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
+      <h3 class="font-semibold text-amber-900">Check this client's documents</h3>
+      <ul class="mt-1 list-disc pl-5 text-sm text-amber-900">
+        @for (warning of clientWarnings(); track $index) {
+          <li>{{ warning }}</li>
+        }
+      </ul>
+    </div>
+  }
+</div>
+
+@if (items().length > 0) {
+  <h3 class="mt-8 text-base font-semibold text-slate-900">Files</h3>
+  <!-- Status changes are announced to screen readers as they happen. -->
+  <ul class="mt-2 divide-y divide-slate-200 rounded-lg border border-slate-200" aria-live="polite">
+    @for (item of items(); track item.id) {
+      <li class="px-4 py-3" [attr.data-status]="item.status">
+        <div class="flex items-center justify-between gap-4">
+          <span class="truncate font-medium text-slate-900">{{ item.file.name }}</span>
+          @switch (item.status) {
+            @case ('queued') {
+              <span class="text-sm text-slate-500">Waiting</span>
+            }
+            @case ('uploading') {
+              <span class="text-sm text-slate-700">Uploading {{ item.percent }}%</span>
+            }
+            @case ('processing') {
+              <span class="text-sm text-slate-700">Reading the form…</span>
+            }
+            @case ('done') {
+              @if (item.result?.needs_review) {
+                <span class="rounded bg-amber-100 px-2 py-0.5 text-sm font-medium text-amber-900"
+                  >Needs review</span
+                >
+              } @else {
+                <span class="rounded bg-green-100 px-2 py-0.5 text-sm font-medium text-green-900"
+                  >Ready</span
+                >
+              }
+            }
+            @case ('rejected') {
+              <span class="rounded bg-red-100 px-2 py-0.5 text-sm font-medium text-red-900"
+                >Not uploaded</span
+              >
+            }
+            @case ('failed') {
+              <span class="rounded bg-red-100 px-2 py-0.5 text-sm font-medium text-red-900"
+                >Failed</span
+              >
+            }
+          }
+        </div>
+
+        @if (item.status === 'uploading' || item.status === 'processing') {
+          <progress
+            class="mt-2 h-1.5 w-full"
+            max="100"
+            [value]="item.percent"
+            [attr.aria-label]="'Upload progress for ' + item.file.name"
+          ></progress>
+        }
+
+        @if (item.result; as doc) {
+          <p class="mt-1 text-sm text-slate-700">
+            {{ formLabel(doc) }}, tax year {{ doc.tax_year }}
+          </p>
+          @if (doc.needs_review) {
+            <ul class="mt-1 list-disc pl-5 text-sm text-amber-900">
+              @for (reason of doc.review_reasons; track $index) {
+                <li>{{ reason }}</li>
+              }
+            </ul>
+            <a
+              class="mt-1 inline-block rounded text-sm font-medium text-blue-700 underline"
+              [routerLink]="['/clients', clientRef(), 'documents', doc.document_id]"
+              >Review fields</a
+            >
+          }
+        }
+
+        @if (item.message) {
+          <p class="mt-1 text-sm text-red-800" role="alert">{{ item.message }}</p>
+        }
+      </li>
+    }
+  </ul>
+}

@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+
+/* The UI is designed in light colours only. Without this, a browser in dark mode paints its own
+   dark page behind our dark text (seen in the first preview, #25). */
+:root {
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--color-slate-50);
+  color: var(--color-slate-900);
+}
+
+/* Keyboard focus is always visible (#25 accessibility criterion). Components add their own
+   focus-visible ring; this is the fallback for anything that doesn't. */
+:focus-visible {
+  outline: 2px solid var(--color-blue-600);
+  outline-offset: 2px;
+}
