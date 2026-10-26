@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { HomePage } from './home/home-page';
 import { NotFoundPage } from './not-found/not-found-page';
+import { PlanPage } from './plan/plan-page';
 import { ReviewPage } from './review/review-page';
 import { UploadPage } from './upload/upload-page';
 
@@ -17,5 +18,6 @@ export const routes: Routes = [
     component: ReviewPage,
     title: 'Review document · TaxDoc Intake',
   },
+  { path: 'clients/:clientRef/plan', component: PlanPage, title: 'Tax plan · TaxDoc Intake' },
   { path: '**', component: NotFoundPage, title: 'Page not found · TaxDoc Intake' },
 ];
