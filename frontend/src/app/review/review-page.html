@@ -4,6 +4,10 @@
 >
   ← Back to client {{ clientRef() }}
 </a>
+<span class="text-sm text-slate-400"> · </span>
+<a class="rounded text-sm text-blue-700 underline" [routerLink]="['/clients', clientRef(), 'plan']">
+  Generate plan
+</a>
 
 @if (loadError(); as message) {
   <p class="mt-6 text-red-800" role="alert">{{ message }}</p>

@@ -1,6 +1,9 @@
 <h2 class="text-xl font-semibold text-slate-900">Upload documents</h2>
 <p class="mt-1 text-sm text-slate-600">
-  Client <span class="font-mono font-medium text-slate-900">{{ clientRef() }}</span>
+  Client <span class="font-mono font-medium text-slate-900">{{ clientRef() }}</span> ·
+  <a class="rounded text-blue-700 underline" [routerLink]="['/clients', clientRef(), 'plan']"
+    >Generate plan</a
+  >
 </p>
 
 <!-- The real file input stays in the tab order (visually hidden); the label is the drop zone and
