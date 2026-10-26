@@ -35,6 +35,7 @@ Prerequisites: Docker Desktop, Java 21 + Maven, Node 22 + npm 11, Python 3.12+ w
 ```bash
 cp .env.example .env          # set passwords and EXTRACTION_TIN_HMAC_KEY
 docker compose up --build     # MySQL + both backend services (migrations run on start)
+                              # uploads use your `taxdoc` AWS profile (~/.aws, mounted read-only)
 cd frontend && npm install && npm start   # http://localhost:4200
 ```
 

@@ -35,6 +35,16 @@ services:
       EXTRACTION_S3_BUCKET: ${EXTRACTION_S3_BUCKET:-}
       EXTRACTION_AWS_REGION: ${AWS_REGION:-us-east-1}
       EXTRACTION_TIN_HMAC_KEY: ${EXTRACTION_TIN_HMAC_KEY:?set in .env}
+      # Local development only: S3/Textract use your CLI profile (aws configure --profile taxdoc),
+      # read from the mounted ~/.aws below. In AWS (Week 4) leave both out; ECS gives the task an
+      # IAM role instead.
+      AWS_PROFILE: ${AWS_PROFILE:-taxdoc}
+    volumes:
+      # Read-only. HOME on Mac/Linux, USERPROFILE on Windows (PowerShell doesn't export HOME).
+      # The image runs as appuser, hence /home/appuser. Trade-off accepted for local dev
+      # (2026-10-26): the container can read every profile in ~/.aws, not only taxdoc. If the
+      # folder doesn't exist, compose still starts and uploads fail with "no credentials".
+      - ${HOME:-${USERPROFILE}}/.aws:/home/appuser/.aws:ro
     # Apply database migrations, then start the API.
     command: ["sh", "-c", "/app/.venv/bin/alembic upgrade head && /app/.venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000"]
     ports:

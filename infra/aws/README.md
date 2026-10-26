@@ -33,6 +33,18 @@ aws sts get-caller-identity --profile taxdoc
 
 Never commit access keys. `.env` is git-ignored; the app reads `AWS_PROFILE=taxdoc`.
 
+**In docker compose**, the extraction container uses the same profile: `docker-compose.yml`
+mounts your `~/.aws` folder read-only at `/home/appuser/.aws` and passes `AWS_PROFILE`. Nothing
+else to set up. Check it with:
+
+```powershell
+docker compose exec extraction-service /app/.venv/bin/python -c "import boto3; print(boto3.client('sts').get_caller_identity()['Arn'])"
+```
+
+The mount exposes every profile in `~/.aws` to the container (including `taxdoc-admin`), which is
+accepted for local development only. In AWS (Week 4) the container gets an IAM task role and no
+credential files.
+
 ## 4. Upload bucket
 Bucket names are global, so add something unique (e.g. your initials):
 
